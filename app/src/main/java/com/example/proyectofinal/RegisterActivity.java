@@ -24,22 +24,22 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        email = findViewById(R.id.registerEmail);
+        /*email = findViewById(R.id.registerEmail);
         name = findViewById(R.id.registerPersonName);
         surname = findViewById(R.id.registerPersonSurname);
         phone = findViewById(R.id.registerPhone);
         password = findViewById(R.id.registerPassword);
-        compPassword = findViewById(R.id.registerRepeatPassword);
-        try {
+        compPassword = findViewById(R.id.registerRepeatPassword);*/
+        /*try {
             registerButton();
         } catch (JSONException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
     }
 
 
-    private void registerButton() throws JSONException {
+    /*private void registerButton() throws JSONException {
         Button registerButton = findViewById(R.id.registerRegister);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,5 +128,5 @@ public class RegisterActivity extends AppCompatActivity {
         SharedPreferences.Editor miEditor = datos.edit();
         miEditor.putString("session_token",LoginActivity.session_token);
         miEditor.apply();
-    }
+    }*/
 }
