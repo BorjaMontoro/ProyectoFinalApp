@@ -140,7 +140,7 @@
         app:layout_constraintTop_toBottomOf="@+id/registroNombre" />
 
     <Button
-        android:id="@+id/registerRegister"
+        android:id="@+id/registrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="153dp"
