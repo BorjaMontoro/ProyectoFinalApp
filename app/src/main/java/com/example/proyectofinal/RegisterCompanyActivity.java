@@ -1,52 +1,62 @@
 package com.example.proyectofinal;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class RegisterCompanyActivity extends AppCompatActivity {
-    EditText email, name, surname, phone, password, compPassword;
+
+    EditText nombreEmpresa,nombre,apellidos,correo,telefono,password,compPassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_company);
-
-        /*email = findViewById(R.id.registerEmail);
-        name = findViewById(R.id.registerPersonName);
-        surname = findViewById(R.id.registerPersonSurname);
-        phone = findViewById(R.id.registerPhone);
-        password = findViewById(R.id.registerPassword);
-        compPassword = findViewById(R.id.registerRepeatPassword);*/
-        /*try {
+        nombreEmpresa = findViewById(R.id.registroNombeEmpresa);
+        nombre = findViewById(R.id.registroNombre);
+        apellidos = findViewById(R.id.registroApellidos);
+        correo = findViewById(R.id.registroCorreos);
+        telefono = findViewById(R.id.registroTelefono);
+        password = findViewById(R.id.registroPassword);
+        compPassword = findViewById(R.id.registroRepetirPassword);
+        try {
             registerButton();
         } catch (JSONException e) {
             throw new RuntimeException(e);
-        }*/
+        }
 
     }
 
 
-    /*private void registerButton() throws JSONException {
-        Button registerButton = findViewById(R.id.registerRegister);
+    private void registerButton() throws JSONException {
+        Button registerButton = findViewById(R.id.registrar);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
                     JSONObject obj = new JSONObject("{}");
-                    obj.put("email", email.getText());
-                    obj.put("name",name.getText());
-                    obj.put("surname",surname.getText());
-                    obj.put("phone",phone.getText());
+                    obj.put("name",nombre.getText());
+                    obj.put("nameCompany",nombreEmpresa.getText());
+                    obj.put("surname",apellidos.getText());
+                    obj.put("email", correo.getText());
+                    obj.put("phone",telefono.getText());
                     obj.put("password",password.getText());
-                    String value = compContrasenya(password.getText().toString(),compPassword.getText().toString());
+                    String value = checkPassword(password.getText().toString(),compPassword.getText().toString());
                     if (value.equals("true")) {
-                        UtilsHTTP.sendPOST("https://cornapi-production-5680.up.railway.app:443/api/signup", obj.toString(), (response) -> {
+                        UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/signup_company", obj.toString(), (response) -> {
                             try {
                                 JSONObject obj2 = new JSONObject(response);
                                 if (obj2.getString("status").equals("OK")) {
-                                    LoginActivity.session_token = obj2.getString("session_token");
-                                    guardarPref();
                                     dialog(obj2.getString("status"),obj2.getString("message"));
                                 } else if (obj2.getString("status").equals("ERROR")) {
                                     dialog(obj2.getString("status"),obj2.getString("message"));
@@ -66,8 +76,8 @@ public class RegisterCompanyActivity extends AppCompatActivity {
         });
     }
 
-    private String compContrasenya(String contrasenya, String repContrasenya) {
-        if (contrasenya.equals(repContrasenya)) {
+    private String checkPassword(String password, String password2) {
+        if (password.equals(password2)) {
             return "true";
         }
         return "false";
@@ -78,26 +88,21 @@ public class RegisterCompanyActivity extends AppCompatActivity {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                AlertDialog.Builder alerta = new AlertDialog.Builder(RegisterActivity.this);
+                AlertDialog.Builder alerta = new AlertDialog.Builder(RegisterCompanyActivity.this);
                 if (status.equals("OK")) {
-                    alerta.setTitle("Registre");
+                    alerta.setTitle("Registro");
                     alerta.setMessage(mesage);
-                    alerta.setNegativeButton("Tancar" ,new DialogInterface.OnClickListener() {
+                    alerta.setNegativeButton("Cerrar" ,new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            MainActivity.name = name.getText().toString();
-                            MainActivity.surname = surname.getText().toString();
-                            MainActivity.email = email.getText().toString();
-                            MainActivity.telephon = phone.getText().toString();
-                            MainActivity.validation_status = "NO_VERFICAT";
-                            startActivity(new Intent(RegisterActivity.this,MainActivity.class));
+                            startActivity(new Intent(RegisterCompanyActivity.this,MainActivity.class));
                         }
                     });
                     alerta.show();
                 } else if (status.equals("ERROR")) {
                     alerta.setTitle("Error de registre");
                     alerta.setMessage(mesage);
-                    alerta.setNegativeButton("Tancar" ,new DialogInterface.OnClickListener() {
+                    alerta.setNegativeButton("Cerrar" ,new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.cancel();
@@ -109,12 +114,4 @@ public class RegisterCompanyActivity extends AppCompatActivity {
             }
         });
     }
-
-    private void guardarPref() {
-        SharedPreferences datos = PreferenceManager.getDefaultSharedPreferences(
-                RegisterActivity.this);
-        SharedPreferences.Editor miEditor = datos.edit();
-        miEditor.putString("session_token",LoginActivity.session_token);
-        miEditor.apply();
-    }*/
 }

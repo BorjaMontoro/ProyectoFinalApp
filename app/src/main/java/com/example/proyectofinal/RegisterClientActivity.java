@@ -16,17 +16,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class RegisterClientActivity extends AppCompatActivity {
-    EditText nombre = findViewById(R.id.registroNombre);
-    EditText apellidos = findViewById(R.id.registroApellidos);
-    EditText correo = findViewById(R.id.registroCorreos);
-    EditText telefono = findViewById(R.id.registroTelefono);
-    EditText password = findViewById(R.id.registroPassword);
-    EditText compPassword = findViewById(R.id.registroRepetirPassword);
+    EditText nombre,apellidos,correo,telefono,password,compPassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_client);
-
+        nombre = findViewById(R.id.registroNombre);
+        apellidos = findViewById(R.id.registroApellidos);
+        correo = findViewById(R.id.registroCorreos);
+        telefono = findViewById(R.id.registroTelefono);
+        password = findViewById(R.id.registroPassword);
+        compPassword = findViewById(R.id.registroRepetirPassword);
         try {
             registerButton();
         } catch (JSONException e) {
