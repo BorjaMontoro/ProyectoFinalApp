@@ -32,7 +32,8 @@ public class LoginActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mail.getText()!=null && password.getText()!=null) {
+                startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                /*if (mail.getText()!=null && password.getText()!=null) {
                     try {
                         JSONObject obj = new JSONObject("{}");
                         obj.put("email", mail.getText());
@@ -55,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }else{
                     dialog("ERROR","Por favor, llena los campos mail y contraseña");
-                }
+                }*/
             }
         });
 
