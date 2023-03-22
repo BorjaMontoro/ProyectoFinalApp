@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.proyectofinal.databinding.FragmentDashboardBinding;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class DashboardFragment extends Fragment {
 
@@ -24,8 +25,7 @@ public class DashboardFragment extends Fragment {
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textDashboard;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
         return root;
     }
 
@@ -33,5 +33,13 @@ public class DashboardFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+    private void sendService(){
+        binding.buttonServicio.setOnClickListener(view ->{
+            String nombreServicio= String.valueOf(binding.inputNombre.getText());
+
+
+                }
+        );
     }
 }

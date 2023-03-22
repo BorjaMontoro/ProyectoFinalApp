@@ -30,7 +30,8 @@ public class LoginActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mail.getText()!=null && password.getText()!=null) {
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                /*if (mail.getText()!=null && password.getText()!=null) {
                     JSONObject obj = null;
                     try {
                         obj = new JSONObject("{}");
@@ -67,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             });
                     alertDialog.show();
-                }
+                }*/
             }
         });
 
