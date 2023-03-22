@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -30,45 +32,30 @@ public class LoginActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                /*if (mail.getText()!=null && password.getText()!=null) {
-                    JSONObject obj = null;
+                if (mail.getText()!=null && password.getText()!=null) {
                     try {
-                        obj = new JSONObject("{}");
+                        JSONObject obj = new JSONObject("{}");
                         obj.put("email", mail.getText());
-                        obj.put("foto", password.getText());
+                        obj.put("password",password.getText());
+                        UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/login", obj.toString(), (response) -> {
+                            try {
+                                JSONObject obj2 = new JSONObject(response);
+                                if (obj2.getString("status").equals("OK")) {
+                                    dialog(obj2.getString("status"),obj2.getString("message"));
+                                } else if (obj2.getString("status").equals("ERROR")) {
+                                    dialog(obj2.getString("status"),obj2.getString("message"));
 
-                        // Enviar l’objecte
-                        UtilsHTTP.sendPOST("https" + "://" + "corns-production.up.railway.app:" + 443 + "/login",
-                                obj.toString(), (response) -> {
-                                    try {
-                                        JSONObject objResponse = new JSONObject(response);
-                                        if(objResponse.getInt("esEmpresa")==0) {
-                                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                        }
-                                        else{
-                                            startActivity(new Intent(LoginActivity.this, MainCompanyActivity.class));
-                                        }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                });
+                                }
+                            } catch (JSONException e) {
+                                System.out.println();
+                            }
+                        });
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }else{
-                    AlertDialog alertDialog = new AlertDialog.Builder(getBaseContext()).create();
-                    alertDialog.setTitle("ERROR");
-                    alertDialog.setMessage("Por favor, llena los campos mail y contraseña");
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-
-                                }
-                            });
-                    alertDialog.show();
-                }*/
+                    dialog("ERROR","Por favor, llena los campos mail y contraseña");
+                }
             }
         });
 
@@ -80,6 +67,38 @@ public class LoginActivity extends AppCompatActivity {
         registerTextCompany.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
                 startActivity(new Intent(LoginActivity.this,RegisterCompanyActivity.class));
+            }
+        });
+    }
+    private void dialog(String status ,String mesage) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                AlertDialog.Builder alerta = new AlertDialog.Builder(LoginActivity.this);
+                if (status.equals("OK")) {
+                    alerta.setTitle("Login");
+                    alerta.setMessage(mesage);
+                    alerta.setNegativeButton("OK" ,new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                        }
+                    });
+                    alerta.show();
+                } else if (status.equals("ERROR")) {
+                    alerta.setTitle("ERROR");
+                    alerta.setMessage(mesage);
+                    alerta.setNegativeButton("OK" ,new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    alerta.show();
+                }
+
             }
         });
     }

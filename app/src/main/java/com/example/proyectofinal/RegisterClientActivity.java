@@ -11,12 +11,14 @@ import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class RegisterClientActivity extends AppCompatActivity {
     EditText nombre,apellidos,correo,telefono,password,compPassword;
+    TextView loginText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +29,12 @@ public class RegisterClientActivity extends AppCompatActivity {
         telefono = findViewById(R.id.registroTelefono);
         password = findViewById(R.id.registroPassword);
         compPassword = findViewById(R.id.registroRepetirPassword);
+        loginText = findViewById(R.id.textViewLogin);
+        loginText.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View view) {
+                startActivity(new Intent(RegisterClientActivity.this,LoginActivity.class));
+            }
+        });
         try {
             registerButton();
         } catch (JSONException e) {
