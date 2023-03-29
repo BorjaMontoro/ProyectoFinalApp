@@ -10,31 +10,31 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 
-import com.example.proyectofinal.databinding.ActivityMainCompanyBinding;
+import com.example.proyectofinal.databinding.ActivityMainClientBinding;
 
-public class MainCompanyActivity extends AppCompatActivity {
+public class MainClientActivity extends AppCompatActivity {
 
-    private ActivityMainCompanyBinding binding;
+    private ActivityMainClientBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMainCompanyBinding.inflate(getLayoutInflater());
+        binding = ActivityMainClientBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         BottomNavigationView bottom=findViewById(R.id.nav_view);
-        replaceFragment(new ServicesFragment());
+        replaceFragment(new SearchFragment());
 
         bottom.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
-                case R.id.Services:
-                    replaceFragment(new ServicesFragment());
+                case R.id.Search:
+                    replaceFragment(new SearchFragment());
                     break;
                 case R.id.Dates:
-                    replaceFragment(new DatesCompanyFragment());
+                    replaceFragment(new DatesClientFragment());
                     break;
                 case R.id.Profile:
-                    replaceFragment(new ProfileCompanyFragment());
+                    replaceFragment(new ProfileClientFragment());
                     break;
             }
 

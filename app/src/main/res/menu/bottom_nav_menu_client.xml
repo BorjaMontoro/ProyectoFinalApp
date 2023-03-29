@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/Search"
+        android:icon="@drawable/ic_search_24"
+        android:title="@string/title_buscar" />
+
+    <item
+        android:id="@+id/Dates"
+        android:icon="@drawable/ic_dates_24"
+        android:title="@string/title_citas" />
+
+    <item
+        android:id="@+id/Profile"
+        android:icon="@drawable/custom_person_icon"
+        android:title="@string/title_perfil" />
+</menu>

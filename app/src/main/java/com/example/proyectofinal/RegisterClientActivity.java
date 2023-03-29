@@ -100,7 +100,7 @@ public class RegisterClientActivity extends AppCompatActivity {
                     alerta.setNegativeButton("Cerrar" ,new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            startActivity(new Intent(RegisterClientActivity.this,MainActivity.class));
+                            startActivity(new Intent(RegisterClientActivity.this, MainClientActivity.class));
                         }
                     });
                     alerta.show();
