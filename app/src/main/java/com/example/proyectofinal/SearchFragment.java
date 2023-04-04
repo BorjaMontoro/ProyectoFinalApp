@@ -3,10 +3,19 @@ package com.example.proyectofinal;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.SearchView;
+import android.widget.Spinner;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,12 +62,55 @@ public class SearchFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_search, container, false);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false);
+        RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
+        List<Anuncio> anuncios=new ArrayList<Anuncio>();
+        anuncios.add(new Anuncio("Riot games","Cami vell","Peluqueria"));
+        anuncios.add(new Anuncio("Elite","Cami vell de Sant Boi","Masajista"));
+
+        AnunciosAdapter adapter=new AnunciosAdapter(anuncios);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(layoutManager);
+
+        SearchView searchView = root.findViewById(R.id.searchView);
+        searchView.setIconifiedByDefault(false);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Aquí puedes llamar al adaptador y actualizar la lista de anuncios según los términos de búsqueda
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // Aquí puedes llamar al adaptador y actualizar la lista de anuncios según los términos de búsqueda
+                return true;
+            }
+        });
+
+        Spinner spinner = root.findViewById(R.id.spinner);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Aquí puedes llamar al adaptador y actualizar la lista de anuncios según el tipo seleccionado
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // No se hace nada si no se selecciona nada en el Spinner
+            }
+        });
+
+
+        return root;
     }
+
 }
