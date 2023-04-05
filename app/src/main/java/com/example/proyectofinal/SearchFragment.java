@@ -1,5 +1,6 @@
 package com.example.proyectofinal;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,7 @@ import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,7 @@ import java.util.List;
  * Use the {@link SearchFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements AnunciosAdapter.OnAnuncioClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -71,14 +73,18 @@ public class SearchFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_search, container, false);
         // Inflate the layout for this fragment
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+
         List<Anuncio> anuncios=new ArrayList<Anuncio>();
         anuncios.add(new Anuncio("Riot games","Cami vell","Peluqueria"));
         anuncios.add(new Anuncio("Elite","Cami vell de Sant Boi","Masajista"));
-
         AnunciosAdapter adapter=new AnunciosAdapter(anuncios);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        adapter.setOnAnuncioClickListener(this);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(layoutManager);
+
+
 
         SearchView searchView = root.findViewById(R.id.searchView);
         searchView.setIconifiedByDefault(false);
@@ -111,6 +117,13 @@ public class SearchFragment extends Fragment {
 
 
         return root;
+    }
+
+    @Override
+    public void onAnuncioClick(Anuncio anuncio) {
+        Intent intent = new Intent(getActivity(), DetalleAnuncio.class);
+        intent.putExtra("ANUNCIO", anuncio);
+        startActivity(intent);
     }
 
 }

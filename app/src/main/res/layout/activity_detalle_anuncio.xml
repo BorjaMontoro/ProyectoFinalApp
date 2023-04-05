@@ -5,124 +5,81 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/loginText"
-        android:layout_width="235dp"
-        android:layout_height="60dp"
-        android:gravity="center"
-        android:text="Inicio Sessión"
-        android:textSize="34sp"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.135" />
-
-    <EditText
-        android:id="@+id/loginPassword"
-        android:layout_width="220dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="90dp"
-        android:background="@drawable/custom_input"
-        android:drawableStart="@drawable/custom_password_icon"
-        android:drawablePadding="12dp"
-        android:ems="10"
-        android:hint="Contraseña"
-        android:inputType="textPassword"
-        android:paddingStart="12dp"
+    <ImageView
+        android:id="@+id/anuncio_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/custom_input"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.43" />
-
-    <EditText
-        android:id="@+id/loginCorreos"
-        android:layout_width="220dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginEnd="90dp"
-        android:background="@drawable/custom_input"
-        android:drawableStart="@drawable/custom_email_icon"
-        android:drawablePadding="12dp"
-        android:ems="10"
-        android:hint="Correo"
-        android:inputType="textEmailAddress"
-        android:paddingStart="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/loginPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.83" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textoCompany"
+        android:id="@+id/nombre_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="¿Eres una compañia y quieres publicar un anuncio?"
-        android:textSize="12sp"
+        android:layout_below="@id/anuncio_image_view"
+        android:layout_marginStart="16dp"
+        android:text="Nombre de la empresa"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.323"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.574" />
+        app:layout_constraintTop_toBottomOf="@+id/anuncio_image_view"
+        app:layout_constraintVertical_bias="0.03" />
 
     <TextView
-        android:id="@+id/textViewSignUpClient"
+        android:id="@+id/tipo_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Registrate"
-        android:textColor="@android:color/holo_red_light"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.877"
+        android:layout_below="@id/direccion_text_view"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Tipo de anuncio"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.542" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Entrar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.677" />
+        app:layout_constraintTop_toBottomOf="@+id/nombre_text_view" />
 
     <TextView
-        android:id="@+id/textoCliente"
-        android:layout_width="261dp"
-        android:layout_height="15dp"
-        android:text="¿Quieres buscar empresas y reservar una cita?"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.543" />
-
-    <TextView
-        android:id="@+id/textViewSignUpCompany"
+        android:id="@+id/direccion_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Registrate"
-        android:textColor="@android:color/holo_red_light"
-        android:textSize="10sp"
+        android:layout_below="@id/nombre_text_view"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:text="Dirección de la empresa"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tipo_text_view" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.907"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.576" />
+        app:layout_constraintTop_toBottomOf="@+id/tab_layout" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/direccion_text_view"
+        app:layout_constraintVertical_bias="0.031"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/black"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@android:color/black"
+        app:tabTextColor="@android:color/darker_gray" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

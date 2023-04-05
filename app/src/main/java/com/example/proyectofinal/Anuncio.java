@@ -1,6 +1,10 @@
 package com.example.proyectofinal;
 
-public class Anuncio {
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class Anuncio implements Serializable {
     private String nombre,direccion,tipo;
     Anuncio(String nombre, String direccion, String tipo){
         this.nombre=nombre;

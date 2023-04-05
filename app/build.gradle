@@ -40,6 +40,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
     implementation 'androidx.navigation:navigation-fragment:2.4.1'
     implementation 'androidx.navigation:navigation-ui:2.4.1'
+    implementation 'androidx.viewpager2:viewpager2:1.1.0-alpha01'
     testImplementation 'junit:junit:4.13.2'
     implementation 'org.json:json:20220924'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
