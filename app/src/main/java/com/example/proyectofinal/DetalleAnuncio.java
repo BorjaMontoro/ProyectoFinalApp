@@ -44,7 +44,7 @@ public class DetalleAnuncio extends AppCompatActivity {
 
         List<String> titleList = new ArrayList<>();
         titleList.add("Servicios");
-        titleList.add("Horarios");
+        titleList.add("Detalles");
 
         // Crear un adaptador de ViewPager para las dos pestañas
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), getLifecycle(), fragmentList);
