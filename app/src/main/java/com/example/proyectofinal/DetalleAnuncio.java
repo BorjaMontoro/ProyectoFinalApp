@@ -2,6 +2,8 @@ package com.example.proyectofinal;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,7 +36,7 @@ public class DetalleAnuncio extends AppCompatActivity {
         mNombreTextView = findViewById(R.id.nombre_text_view);
         mDireccionTextView = findViewById(R.id.direccion_text_view);
         mTipoTextView = findViewById(R.id.tipo_text_view);
-        // Obtener el TabLayout y ViewPager desde el archivo de diseño XML
+
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         ViewPager2 viewPager2 = findViewById(R.id.view_pager);
 
@@ -46,13 +48,18 @@ public class DetalleAnuncio extends AppCompatActivity {
         titleList.add("Servicios");
         titleList.add("Detalles");
 
-        // Crear un adaptador de ViewPager para las dos pestañas
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), getLifecycle(), fragmentList);
 
-
-        // Configurar el adaptador en el ViewPager
         viewPager2.setAdapter(adapter);
 
+        ImageButton btnAtras = findViewById(R.id.btn_back);
+        btnAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetalleAnuncio.this, MainClientActivity.class);
+                startActivity(intent);
+            }
+        });
 
         new TabLayoutMediator(tabLayout, viewPager2,
                 (tab, position) -> tab.setText(titleList.get(position))

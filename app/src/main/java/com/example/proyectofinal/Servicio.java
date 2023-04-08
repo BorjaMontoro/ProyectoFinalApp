@@ -1,6 +1,8 @@
 package com.example.proyectofinal;
 
-public class Servicio {
+import java.io.Serializable;
+
+public class Servicio implements Serializable {
     private String nombre,precio,duracion;
 
     public Servicio(String nombre, String precio, String duracion) {

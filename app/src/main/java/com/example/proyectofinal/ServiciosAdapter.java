@@ -1,5 +1,6 @@
 package com.example.proyectofinal;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +34,9 @@ public class ServiciosAdapter extends RecyclerView.Adapter<ServiciosAdapter.Serv
         holder.botonReservar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Aquí debes lanzar el activity de reserva
+                Intent intent = new Intent(v.getContext(), ReservarActivity.class);
+                intent.putExtra("servicio", servicio);
+                v.getContext().startActivity(intent);
             }
         });
     }
