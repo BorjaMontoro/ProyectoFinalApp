@@ -63,9 +63,9 @@ public class RegisterClientActivity extends AppCompatActivity {
                                 JSONObject obj2 = new JSONObject(response);
                                 if (obj2.getString("status").equals("OK")) {
                                     dialog(obj2.getString("status"),obj2.getString("message"));
+                                    startActivity(new Intent(RegisterClientActivity.this,MainClientActivity.class));
                                 } else if (obj2.getString("status").equals("ERROR")) {
                                     dialog(obj2.getString("status"),obj2.getString("message"));
-
                                 }
                             } catch (JSONException e) {
                                 System.out.println();

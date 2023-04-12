@@ -66,6 +66,8 @@ public class RegisterCompanyActivity extends AppCompatActivity {
                                 JSONObject obj2 = new JSONObject(response);
                                 if (obj2.getString("status").equals("OK")) {
                                     dialog(obj2.getString("status"),obj2.getString("message"));
+                                    startActivity(new Intent(RegisterCompanyActivity.this,ActivityAnuncio.class));
+
                                 } else if (obj2.getString("status").equals("ERROR")) {
                                     dialog(obj2.getString("status"),obj2.getString("message"));
 

@@ -12,6 +12,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class LoginActivity extends AppCompatActivity {
 
     @Override
@@ -29,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, MainClientActivity.class));
-                /*if (mail.getText()!=null && password.getText()!=null) {
+                if (mail.getText()!=null && password.getText()!=null) {
                     try {
                         JSONObject obj = new JSONObject("{}");
                         obj.put("email", mail.getText());
@@ -39,6 +42,12 @@ public class LoginActivity extends AppCompatActivity {
                                 JSONObject obj2 = new JSONObject(response);
                                 if (obj2.getString("status").equals("OK")) {
                                     dialog(obj2.getString("status"),obj2.getString("message"));
+                                    if(obj2.getInt("esEmpresa")==0) {
+                                        startActivity(new Intent(LoginActivity.this,MainClientActivity.class));
+                                    }
+                                    else if(obj2.getInt("esEmpresa")==1) {
+                                        startActivity(new Intent(LoginActivity.this,MainCompanyActivity.class));
+                                    }
                                 } else if (obj2.getString("status").equals("ERROR")) {
                                     dialog(obj2.getString("status"),obj2.getString("message"));
 
@@ -52,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }else{
                     dialog("ERROR","Por favor, llena los campos mail y contraseña");
-                }*/
+                }
             }
         });
 

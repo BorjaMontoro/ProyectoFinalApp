@@ -15,13 +15,32 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.time.LocalTime;
+import java.time.chrono.ChronoLocalDateTime;
+import java.util.ArrayList;
+
 public class ActivityAnuncio extends AppCompatActivity {
     ActivityResultLauncher<Intent> someActivityResultLauncher;
+    String[] horasLunes = new String[4];
+    String[] horasMartes = new String[4];
+    String[] horasMiercoles = new String[4];
+    String[] horasJueves = new String[4];
+    String[] horasViernes = new String[4];
+    String[] horasSabado = new String[4];
+    String[] horasDomingo = new String[4];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_anuncio);
+        Button horario = findViewById(R.id.button4);
+        horario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         someActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -43,5 +62,8 @@ public class ActivityAnuncio extends AppCompatActivity {
         //Launch activity to get result
         //ImageView img = findViewById(R.id.img);
         someActivityResultLauncher.launch(intent);
+    }
+    public void comprobarHoras(){
+
     }
 }
