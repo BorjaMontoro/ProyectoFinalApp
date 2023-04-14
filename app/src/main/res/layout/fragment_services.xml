@@ -52,18 +52,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.672" />
 
-        <Spinner
-            android:id="@+id/spinnerTiempo"
-            android:layout_width="249dp"
-            android:layout_height="57dp"
-            android:entries="@array/horas"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.82"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.451" />
-
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
@@ -76,6 +64,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.46" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="minutos"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.954"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.468" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputNombre"
@@ -90,6 +91,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.279" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputDuracion"
+            android:layout_width="188dp"
+            android:layout_height="58dp"
+            android:layout_marginStart="35dp"
+            android:hint="0 "
+            android:minHeight="48dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.576"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.464" />
 
         <Button
             android:id="@+id/buttonServicio"

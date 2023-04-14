@@ -1,12 +1,23 @@
 package com.example.proyectofinal;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +70,73 @@ public class ServicesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_services, container, false);
+        View root = inflater.inflate(R.layout.fragment_services, container, false);
+
+        Button addService = root.findViewById(R.id.buttonServicio);
+        TextView nombre = root.findViewById(R.id.inputNombre);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView duracion = root.findViewById(R.id.inputDuracion);
+        TextView precio = root.findViewById(R.id.inputPrecio);
+
+        addService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    JSONObject obj = new JSONObject("{}");
+                    obj.put("id",RegisterClientActivity.id);
+                    obj.put("name",nombre.getText());
+                    obj.put("price",precio.getText());
+                    obj.put("duration",duracion.getText());
+                    UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/insert_service", obj.toString(), (response) -> {
+                            try {
+                                JSONObject obj2 = new JSONObject(response);
+                                if (obj2.getString("status").equals("OK")) {
+                                    dialog(obj2.getString("status"),obj2.getString("message"));
+
+                                } else if (obj2.getString("status").equals("ERROR")) {
+                                    dialog(obj2.getString("status"),obj2.getString("message"));
+
+                                }
+                            } catch (JSONException e) {
+                                System.out.println();
+                            }
+                        });
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+        return root;
+    }
+    private void dialog(String status ,String mesage) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                AlertDialog.Builder alerta = new AlertDialog.Builder(getContext());
+                if (status.equals("OK")) {
+                    alerta.setTitle("Enviado servicio");
+                    alerta.setMessage(mesage);
+                    alerta.setNegativeButton("Cerrar" ,new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    alerta.show();
+                } else if (status.equals("ERROR")) {
+                    alerta.setTitle("Error al enviar servicio");
+                    alerta.setMessage(mesage);
+                    alerta.setNegativeButton("Cerrar" ,new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    alerta.show();
+                }
+
+            }
+        });
     }
 }

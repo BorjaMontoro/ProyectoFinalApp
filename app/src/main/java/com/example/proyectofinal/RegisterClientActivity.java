@@ -19,6 +19,7 @@ import org.json.JSONObject;
 public class RegisterClientActivity extends AppCompatActivity {
     EditText nombre,apellidos,correo,telefono,password,compPassword;
     TextView loginText;
+    public static int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,8 +63,8 @@ public class RegisterClientActivity extends AppCompatActivity {
                             try {
                                 JSONObject obj2 = new JSONObject(response);
                                 if (obj2.getString("status").equals("OK")) {
+                                    id=obj2.getInt("id");
                                     dialog(obj2.getString("status"),obj2.getString("message"));
-                                    startActivity(new Intent(RegisterClientActivity.this,MainClientActivity.class));
                                 } else if (obj2.getString("status").equals("ERROR")) {
                                     dialog(obj2.getString("status"),obj2.getString("message"));
                                 }
