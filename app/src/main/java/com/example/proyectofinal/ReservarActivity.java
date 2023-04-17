@@ -21,6 +21,7 @@ import java.util.List;
 
 public class ReservarActivity extends AppCompatActivity {
     private Servicio servicio;
+    private String empresa;
     private CalendarView calendario;
     private RecyclerView listaHorasDisponibles;
     private List<String> horasDisponibles;
@@ -33,7 +34,8 @@ public class ReservarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reservar);
 
         servicio = (Servicio) getIntent().getSerializableExtra("servicio");
-
+        empresa = getIntent().getStringExtra("empresa");
+        System.out.println(empresa);
         TextView nombreServicioTextView = findViewById(R.id.nombre_servicio_text_view);
         TextView precioServicioTextView = findViewById(R.id.precio_servicio_text_view);
         TextView duracionServicioTextView = findViewById(R.id.duracion_servicio_text_view);
@@ -89,8 +91,7 @@ public class ReservarActivity extends AppCompatActivity {
         btnAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ReservarActivity.this, DetalleAnuncio.class);
-                startActivity(intent);
+                finish();
             }
         });
     }
