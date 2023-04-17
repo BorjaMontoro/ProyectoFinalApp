@@ -31,7 +31,6 @@ public class LoginActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, MainClientActivity.class));
                 if (mail.getText()!=null && password.getText()!=null) {
                     try {
                         JSONObject obj = new JSONObject("{}");

@@ -15,6 +15,9 @@ import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +37,9 @@ public class SearchFragment extends Fragment implements AnunciosAdapter.OnAnunci
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private String busqueda="";
+    private String tipo="Todos";
 
     public SearchFragment() {
         // Required empty public constructor
@@ -78,14 +84,6 @@ public class SearchFragment extends Fragment implements AnunciosAdapter.OnAnunci
         recyclerView.setLayoutManager(layoutManager);
 
         List<Anuncio> anuncios=new ArrayList<Anuncio>();
-        anuncios.add(new Anuncio("Riot games","Cami vell","Peluqueria"));
-        anuncios.add(new Anuncio("Elite","Cami vell de Sant Boi","Masajista"));
-        AnunciosAdapter adapter=new AnunciosAdapter(anuncios);
-        adapter.setOnAnuncioClickListener(this);
-        recyclerView.setAdapter(adapter);
-
-
-
         SearchView searchView = root.findViewById(R.id.searchView);
         searchView.setIconifiedByDefault(false);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -115,6 +113,27 @@ public class SearchFragment extends Fragment implements AnunciosAdapter.OnAnunci
             }
         });
 
+        try {
+            JSONObject obj = new JSONObject("{}");
+            obj.put("search", busqueda);
+            obj.put("tipo",tipo);
+            UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/get_advertisments", obj.toString(), (response) -> {
+                try {
+                    JSONObject obj2 = new JSONObject(response);
+                    //obj2.
+
+                } catch (JSONException e) {
+                    System.out.println();
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        anuncios.add(new Anuncio("Riot games","Cami vell","Peluqueria"));
+        anuncios.add(new Anuncio("Elite","Cami vell de Sant Boi","Masajista"));
+        AnunciosAdapter adapter=new AnunciosAdapter(anuncios);
+        adapter.setOnAnuncioClickListener(this);
+        recyclerView.setAdapter(adapter);
 
         return root;
     }

@@ -14,9 +14,11 @@ import java.util.List;
 public class ServiciosAdapter extends RecyclerView.Adapter<ServiciosAdapter.ServiciosViewHolder> {
 
     private List<Servicio> listaServicios;
+    private String empresa;
 
-    public ServiciosAdapter(List<Servicio> listaServicios) {
+    public ServiciosAdapter(List<Servicio> listaServicios,String empresa) {
         this.listaServicios = listaServicios;
+        this.empresa=empresa;
     }
 
     @Override
@@ -36,6 +38,7 @@ public class ServiciosAdapter extends RecyclerView.Adapter<ServiciosAdapter.Serv
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ReservarActivity.class);
                 intent.putExtra("servicio", servicio);
+                intent.putExtra("empresa",empresa);
                 v.getContext().startActivity(intent);
             }
         });

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
@@ -28,10 +29,14 @@ public class DetalleAnuncio extends AppCompatActivity {
     private TextView mHorarioTextView;
     private TextView mServiciosTextView;
 
+    private DetalleAnuncioViewModel mViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_anuncio);
+        mViewModel = new ViewModelProvider(this).get(DetalleAnuncioViewModel.class);
+
         mAnuncioImageView = findViewById(R.id.anuncio_image_view);
         mNombreTextView = findViewById(R.id.nombre_text_view);
         mDireccionTextView = findViewById(R.id.direccion_text_view);
@@ -40,8 +45,22 @@ public class DetalleAnuncio extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         ViewPager2 viewPager2 = findViewById(R.id.view_pager);
 
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("ANUNCIO")) {
+            Anuncio anuncio = (Anuncio) intent.getSerializableExtra("ANUNCIO");
+
+            //mAnuncioImageView.setImageResource(anuncio.getImageResource());
+            mViewModel.setNombre(anuncio.getNombre());
+            mViewModel.setDireccion(anuncio.getDireccion());
+            mViewModel.setTipo(anuncio.getTipo());
+        }
+
+        mNombreTextView.setText(mViewModel.getNombre());
+        mDireccionTextView.setText(mViewModel.getDireccion());
+        mTipoTextView.setText(mViewModel.getTipo());
+
         List<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(new ListadoServiciosFragment());
+        fragmentList.add(new ListadoServiciosFragment((String) mNombreTextView.getText()));
         fragmentList.add(new HorariosFragment());
 
         List<String> titleList = new ArrayList<>();
@@ -87,16 +106,6 @@ public class DetalleAnuncio extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
-
-        Intent intent = getIntent();
-        if (intent != null && intent.hasExtra("ANUNCIO")) {
-            Anuncio anuncio = (Anuncio) intent.getSerializableExtra("ANUNCIO");
-
-            //mAnuncioImageView.setImageResource(anuncio.getImageResource());
-            mNombreTextView.setText(anuncio.getNombre());
-            mDireccionTextView.setText(anuncio.getDireccion());
-            mTipoTextView.setText(anuncio.getTipo());
-        }
     }
 
     // ...

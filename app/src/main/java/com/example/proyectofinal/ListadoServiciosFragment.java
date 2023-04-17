@@ -28,9 +28,11 @@ public class ListadoServiciosFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private String empresa;
 
-    public ListadoServiciosFragment() {
+    public ListadoServiciosFragment(String empresa) {
         // Required empty public constructor
+        this.empresa=empresa;
     }
 
     /**
@@ -42,8 +44,8 @@ public class ListadoServiciosFragment extends Fragment {
      * @return A new instance of fragment BlankFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ListadoServiciosFragment newInstance(String param1, String param2) {
-        ListadoServiciosFragment fragment = new ListadoServiciosFragment();
+    public static ListadoServiciosFragment newInstance(String param1, String param2, String empresa) {
+        ListadoServiciosFragment fragment = new ListadoServiciosFragment(empresa);
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -66,7 +68,8 @@ public class ListadoServiciosFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_listado_servicios, container, false);
         RecyclerView recyclerView = root.findViewById(R.id.recycler_view_servicios);
         List<Servicio> listaServicios = obtenerListaServicios(); // Aquí debes obtener la lista de servicios desde algún lugar
-        ServiciosAdapter adapter = new ServiciosAdapter(listaServicios);
+
+        ServiciosAdapter adapter = new ServiciosAdapter(listaServicios,empresa);
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
