@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.Settings;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -42,10 +44,35 @@ public class LoginActivity extends AppCompatActivity {
                                 if (obj2.getString("status").equals("OK")) {
                                     dialog(obj2.getString("status"),obj2.getString("message"));
                                     if(obj2.getInt("esEmpresa")==0) {
+                                        RegisterClientActivity.id=obj2.getInt("id");
                                         startActivity(new Intent(LoginActivity.this,MainClientActivity.class));
                                     }
                                     else if(obj2.getInt("esEmpresa")==1) {
-                                        startActivity(new Intent(LoginActivity.this,MainCompanyActivity.class));
+                                        RegisterClientActivity.id=obj2.getInt("id");
+                                        try {
+                                            JSONObject obj3 = new JSONObject("{}");
+                                            obj3.put("id", RegisterClientActivity.id);
+                                            UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/have_advertisment", obj3.toString(), (response2) -> {
+                                                try {
+                                                    JSONObject obj4 = new JSONObject(response2);
+                                                    if (obj4.getString("status").equals("OK")) {
+                                                        if(obj4.getBoolean("anuncio")) {
+                                                            startActivity(new Intent(LoginActivity.this,MainCompanyActivity.class));
+                                                        }
+                                                        else if(!obj4.getBoolean("anuncio")) {
+                                                            startActivity(new Intent(LoginActivity.this, ActivityAnuncio.class));
+                                                        }
+                                                    } else if (obj4.getString("status").equals("ERROR")) {
+                                                        dialog(obj4.getString("status"),obj4.getString("message"));
+
+                                                    }
+                                                } catch (JSONException e) {
+                                                    System.out.println();
+                                                }
+                                            });
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
                                 } else if (obj2.getString("status").equals("ERROR")) {
                                     dialog(obj2.getString("status"),obj2.getString("message"));
@@ -81,18 +108,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void run() {
                 AlertDialog.Builder alerta = new AlertDialog.Builder(LoginActivity.this);
-                if (status.equals("OK")) {
-                    alerta.setTitle("Login");
-                    alerta.setMessage(mesage);
-                    alerta.setNegativeButton("OK" ,new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                            startActivity(new Intent(LoginActivity.this, MainClientActivity.class));
-                        }
-                    });
-                    alerta.show();
-                } else if (status.equals("ERROR")) {
+                if (status.equals("ERROR")) {
                     alerta.setTitle("ERROR");
                     alerta.setMessage(mesage);
                     alerta.setNegativeButton("OK" ,new DialogInterface.OnClickListener() {
@@ -106,6 +122,16 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            // Ignorar el evento del botón de retroceso
+            return true;
+        }
+        // Dejar que otros eventos de tecla se procesen
+        return super.onKeyDown(keyCode, event);
     }
 
 }

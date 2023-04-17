@@ -65,8 +65,8 @@ public class RegisterCompanyActivity extends AppCompatActivity {
                             try {
                                 JSONObject obj2 = new JSONObject(response);
                                 if (obj2.getString("status").equals("OK")) {
-                                    dialog(obj2.getString("status"),obj2.getString("message"));
                                     RegisterClientActivity.id=obj2.getInt("id");
+                                    dialog(obj2.getString("status"),obj2.getString("message"));
 
                                 } else if (obj2.getString("status").equals("ERROR")) {
                                     dialog(obj2.getString("status"),obj2.getString("message"));
@@ -105,7 +105,7 @@ public class RegisterCompanyActivity extends AppCompatActivity {
                     alerta.setNegativeButton("Cerrar" ,new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            startActivity(new Intent(RegisterCompanyActivity.this, MainCompanyActivity.class));
+                            startActivity(new Intent(RegisterCompanyActivity.this, ActivityAnuncio.class));
                         }
                     });
                     alerta.show();

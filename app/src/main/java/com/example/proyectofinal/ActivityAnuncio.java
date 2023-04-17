@@ -43,8 +43,8 @@ public class ActivityAnuncio extends AppCompatActivity {
     String[] horasViernes = new String[4];
     String[] horasSabado = new String[4];
     String[] horasDomingo = new String[4];
-    TextView direccion = findViewById(R.id.direccion);
-    TextView tipo = findViewById(R.id.tipo);
+    TextView direccion;
+    TextView tipo;
     String base64;
 
     @Override
@@ -53,6 +53,8 @@ public class ActivityAnuncio extends AppCompatActivity {
 
         setContentView(R.layout.activity_anuncio);
         Button foto = findViewById(R.id.button2);
+        direccion = findViewById(R.id.direccion);
+        tipo = findViewById(R.id.tipo);
         foto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
