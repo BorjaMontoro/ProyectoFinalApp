@@ -52,6 +52,13 @@ public class ActivityAnuncio extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_anuncio);
+        Button foto = findViewById(R.id.button2);
+        foto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSomeActivityForResult(v);
+            }
+        });
         Button horario = findViewById(R.id.button4);
         String hora1="nada";
         String hora2="nada";
