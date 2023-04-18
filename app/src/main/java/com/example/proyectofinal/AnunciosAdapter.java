@@ -1,8 +1,12 @@
 package com.example.proyectofinal;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -58,6 +62,7 @@ public class AnunciosAdapter extends RecyclerView.Adapter<AnunciosAdapter.ViewHo
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        private ImageView mImageView;
         private TextView mNombreTextView;
         private TextView mDireccionTextView;
         private TextView mTipoTextView;
@@ -65,6 +70,7 @@ public class AnunciosAdapter extends RecyclerView.Adapter<AnunciosAdapter.ViewHo
         public ViewHolder(View itemView) {
             super(itemView);
 
+            mImageView = itemView.findViewById(R.id.imageView);
             mNombreTextView = itemView.findViewById(R.id.nombreTextView);
             mDireccionTextView = itemView.findViewById(R.id.direccionTextView);
             mTipoTextView = itemView.findViewById(R.id.tipoTextView);
@@ -74,6 +80,13 @@ public class AnunciosAdapter extends RecyclerView.Adapter<AnunciosAdapter.ViewHo
             mNombreTextView.setText(anuncio.getNombre());
             mDireccionTextView.setText(anuncio.getDireccion());
             mTipoTextView.setText(anuncio.getTipo());
+
+            byte[] imageBytes = Base64.decode(anuncio.getBase64(), Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+            mImageView.setImageBitmap(bitmap);
+
+
+
         }
     }
 

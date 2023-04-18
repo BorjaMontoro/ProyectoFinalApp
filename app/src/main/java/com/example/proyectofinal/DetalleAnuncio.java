@@ -1,7 +1,10 @@
 package com.example.proyectofinal;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -49,7 +52,7 @@ public class DetalleAnuncio extends AppCompatActivity {
         if (intent != null && intent.hasExtra("ANUNCIO")) {
             Anuncio anuncio = (Anuncio) intent.getSerializableExtra("ANUNCIO");
 
-            //mAnuncioImageView.setImageResource(anuncio.getImageResource());
+            mViewModel.setBase64(anuncio.getBase64());
             mViewModel.setNombre(anuncio.getNombre());
             mViewModel.setDireccion(anuncio.getDireccion());
             mViewModel.setTipo(anuncio.getTipo());
@@ -58,6 +61,10 @@ public class DetalleAnuncio extends AppCompatActivity {
         mNombreTextView.setText(mViewModel.getNombre());
         mDireccionTextView.setText(mViewModel.getDireccion());
         mTipoTextView.setText(mViewModel.getTipo());
+
+        byte[] imageBytes = Base64.decode(mViewModel.getBase64(), Base64.DEFAULT);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+        mAnuncioImageView.setImageBitmap(bitmap);
 
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(new ListadoServiciosFragment((String) mNombreTextView.getText()));

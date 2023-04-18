@@ -3,6 +3,7 @@ package com.example.proyectofinal;
 import androidx.lifecycle.ViewModel;
 
 public class DetalleAnuncioViewModel extends ViewModel {
+    private String base64;
     private String mNombre;
     private String mDireccion;
     private String mTipo;
@@ -29,6 +30,14 @@ public class DetalleAnuncioViewModel extends ViewModel {
 
     public void setTipo(String tipo) {
         mTipo = tipo;
+    }
+
+    public String getBase64() {
+        return base64;
+    }
+
+    public void setBase64(String base64) {
+        this.base64 = base64;
     }
 }
 

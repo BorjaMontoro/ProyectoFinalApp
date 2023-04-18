@@ -1,5 +1,7 @@
 package com.example.proyectofinal;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -7,6 +9,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +19,7 @@ import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,6 +45,7 @@ public class SearchFragment extends Fragment implements AnunciosAdapter.OnAnunci
 
     private String busqueda="";
     private String tipo="Todos";
+    private RecyclerView recyclerView;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -78,12 +84,18 @@ public class SearchFragment extends Fragment implements AnunciosAdapter.OnAnunci
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_search, container, false);
         // Inflate the layout for this fragment
-        RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
+        recyclerView = root.findViewById(R.id.recyclerView);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        List<Anuncio> anuncios=new ArrayList<Anuncio>();
+        List<Anuncio> b=new ArrayList<Anuncio>();
+
+        AnunciosAdapter adapter=new AnunciosAdapter(b);
+        adapter.setOnAnuncioClickListener(SearchFragment.this);
+        recyclerView.setAdapter(adapter);
+
+
         SearchView searchView = root.findViewById(R.id.searchView);
         searchView.setIconifiedByDefault(false);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -96,6 +108,8 @@ public class SearchFragment extends Fragment implements AnunciosAdapter.OnAnunci
             @Override
             public boolean onQueryTextChange(String newText) {
                 // Aquí puedes llamar al adaptador y actualizar la lista de anuncios según los términos de búsqueda
+                busqueda=newText;
+                generarDatos();
                 return true;
             }
         });
@@ -105,6 +119,8 @@ public class SearchFragment extends Fragment implements AnunciosAdapter.OnAnunci
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // Aquí puedes llamar al adaptador y actualizar la lista de anuncios según el tipo seleccionado
+                tipo=(String) spinner.getSelectedItem();
+                generarDatos();
             }
 
             @Override
@@ -113,27 +129,7 @@ public class SearchFragment extends Fragment implements AnunciosAdapter.OnAnunci
             }
         });
 
-        try {
-            JSONObject obj = new JSONObject("{}");
-            obj.put("search", busqueda);
-            obj.put("tipo",tipo);
-            UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/get_advertisments", obj.toString(), (response) -> {
-                try {
-                    JSONObject obj2 = new JSONObject(response);
-                    //obj2.
-
-                } catch (JSONException e) {
-                    System.out.println();
-                }
-            });
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        anuncios.add(new Anuncio("Riot games","Cami vell","Peluqueria"));
-        anuncios.add(new Anuncio("Elite","Cami vell de Sant Boi","Masajista"));
-        AnunciosAdapter adapter=new AnunciosAdapter(anuncios);
-        adapter.setOnAnuncioClickListener(this);
-        recyclerView.setAdapter(adapter);
+        generarDatos();
 
         return root;
     }
@@ -143,6 +139,41 @@ public class SearchFragment extends Fragment implements AnunciosAdapter.OnAnunci
         Intent intent = new Intent(getActivity(), DetalleAnuncio.class);
         intent.putExtra("ANUNCIO", anuncio);
         startActivity(intent);
+    }
+
+    public void generarDatos(){
+        try {
+            JSONObject obj = new JSONObject("{}");
+            obj.put("search", busqueda);
+            obj.put("tipo",tipo);
+            UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/get_advertisments", obj.toString(), (response) -> {
+                try {
+                    JSONObject obj2 = new JSONObject(response);
+                    JSONArray jsonArray=obj2.getJSONArray("advertisments");
+                    List<Anuncio> anuncios=new ArrayList<Anuncio>();
+
+                    for (int i=0;i<jsonArray.length();i++){
+                        JSONObject anuncioIndividual=jsonArray.getJSONObject(i);
+                        anuncios.add(new Anuncio(anuncioIndividual.getString("nombreEmpresa"),anuncioIndividual.getString("direccion"),anuncioIndividual.getString("tipo"),anuncioIndividual.getString("imagen")));
+                    }
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            AnunciosAdapter adapter=new AnunciosAdapter(anuncios);
+                            adapter.setOnAnuncioClickListener(SearchFragment.this);
+                            recyclerView.setAdapter(adapter);
+
+                        }
+                    });
+
+                } catch (JSONException e) {
+                    System.out.println();
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 }
