@@ -45,7 +45,7 @@ public class ActivityAnuncio extends AppCompatActivity {
     String[] horasDomingo = new String[4];
     TextView direccion;
     TextView tipo;
-    String base64;
+    String base64=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -202,55 +202,69 @@ public class ActivityAnuncio extends AppCompatActivity {
         enviarAnunci.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    JSONObject obj = null;
-                    obj = new JSONObject("{}");
-                    obj.put("id",RegisterClientActivity.id);
-                    obj.put("tipo",tipo.getText());
-                    obj.put("imagen",base64);
-                    obj.put("direccion",direccion.getText());
-                    obj.put("diaInicioLunes",horasLunes[0]);
-                    obj.put("diaFinalLunes",horasLunes[1]);
-                    obj.put("tardeInicioLunes",horasLunes[2]);
-                    obj.put("tardeFinalLunes",horasLunes[3]);
-                    obj.put("diaInicioMartes",horasMartes[0]);
-                    obj.put("diaFinalMartes",horasMartes[1]);
-                    obj.put("tardeInicioMartes",horasMartes[2]);
-                    obj.put("tardeFinalMartes",horasMartes[3]);
-                    obj.put("diaInicioMiercoles",horasMiercoles[0]);
-                    obj.put("diaFinalMiercoles",horasMiercoles[1]);
-                    obj.put("tardeInicioMiercoles",horasMiercoles[2]);
-                    obj.put("tardeFinalMiercoles",horasMiercoles[3]);
-                    obj.put("diaInicioJueves",horasJueves[0]);
-                    obj.put("diaFinalJueves",horasJueves[1]);
-                    obj.put("tardeInicioJueves",horasJueves[2]);
-                    obj.put("tardeFinalJueves",horasJueves[3]);
-                    obj.put("diaInicioViernes",horasViernes[0]);
-                    obj.put("diaFinalViernes",horasViernes[1]);
-                    obj.put("tardeInicioViernes",horasViernes[2]);
-                    obj.put("tardeFinalViernes",horasViernes[3]);
-                    obj.put("diaInicioSabado",horasSabado[0]);
-                    obj.put("diaFinalSabado",horasSabado[1]);
-                    obj.put("tardeInicioSabado",horasSabado[2]);
-                    obj.put("tardeFinalSabado",horasSabado[3]);
-                    obj.put("diaInicioDomingo",horasDomingo[0]);
-                    obj.put("diaFinalDomingo",horasDomingo[1]);
-                    obj.put("tardeInicioDomingo",horasDomingo[2]);
-                    obj.put("tardeFinalDomingo",horasDomingo[3]);
+                if (base64!=null&&direccion.getText()!=null&&tipo.getText()!=null) {
+                    try {
+                        JSONObject obj = null;
+                        obj = new JSONObject("{}");
+                        obj.put("id", RegisterClientActivity.id);
+                        obj.put("tipo", tipo.getText());
+                        obj.put("imagen", base64);
+                        obj.put("direccion", direccion.getText());
+                        obj.put("diaInicioLunes", horasLunes[0]);
+                        obj.put("diaFinalLunes", horasLunes[1]);
+                        obj.put("tardeInicioLunes", horasLunes[2]);
+                        obj.put("tardeFinalLunes", horasLunes[3]);
+                        obj.put("diaInicioMartes", horasMartes[0]);
+                        obj.put("diaFinalMartes", horasMartes[1]);
+                        obj.put("tardeInicioMartes", horasMartes[2]);
+                        obj.put("tardeFinalMartes", horasMartes[3]);
+                        obj.put("diaInicioMiercoles", horasMiercoles[0]);
+                        obj.put("diaFinalMiercoles", horasMiercoles[1]);
+                        obj.put("tardeInicioMiercoles", horasMiercoles[2]);
+                        obj.put("tardeFinalMiercoles", horasMiercoles[3]);
+                        obj.put("diaInicioJueves", horasJueves[0]);
+                        obj.put("diaFinalJueves", horasJueves[1]);
+                        obj.put("tardeInicioJueves", horasJueves[2]);
+                        obj.put("tardeFinalJueves", horasJueves[3]);
+                        obj.put("diaInicioViernes", horasViernes[0]);
+                        obj.put("diaFinalViernes", horasViernes[1]);
+                        obj.put("tardeInicioViernes", horasViernes[2]);
+                        obj.put("tardeFinalViernes", horasViernes[3]);
+                        obj.put("diaInicioSabado", horasSabado[0]);
+                        obj.put("diaFinalSabado", horasSabado[1]);
+                        obj.put("tardeInicioSabado", horasSabado[2]);
+                        obj.put("tardeFinalSabado", horasSabado[3]);
+                        obj.put("diaInicioDomingo", horasDomingo[0]);
+                        obj.put("diaFinalDomingo", horasDomingo[1]);
+                        obj.put("tardeInicioDomingo", horasDomingo[2]);
+                        obj.put("tardeFinalDomingo", horasDomingo[3]);
                         UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/create_advertisment", obj.toString(), (response) -> {
                             try {
                                 JSONObject obj2 = new JSONObject(response);
                                 if (obj2.getString("status").equals("OK")) {
-                                    dialog(obj2.getString("status"),obj2.getString("message"));
+                                    dialog(obj2.getString("status"), obj2.getString("message"));
                                 } else if (obj2.getString("status").equals("ERROR")) {
-                                    dialog(obj2.getString("status"),obj2.getString("message"));
+                                    dialog(obj2.getString("status"), obj2.getString("message"));
                                 }
                             } catch (JSONException e) {
                                 System.out.println();
                             }
                         });
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                else{
+                    AlertDialog.Builder alerta = new AlertDialog.Builder(ActivityAnuncio.this);
+                    alerta.setTitle("Error");
+                    alerta.setMessage("Rellena los campos");
+                    alerta.setNegativeButton("Cerrar" ,new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                startActivity(new Intent(ActivityAnuncio.this, MainCompanyActivity.class));
+                            }
+                    });
+                    alerta.show();
                 }
             }
         });
