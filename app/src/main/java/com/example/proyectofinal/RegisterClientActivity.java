@@ -19,7 +19,7 @@ import org.json.JSONObject;
 public class RegisterClientActivity extends AppCompatActivity {
     EditText nombre,apellidos,correo,telefono,password,compPassword;
     TextView loginText;
-    public static int id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +63,7 @@ public class RegisterClientActivity extends AppCompatActivity {
                             try {
                                 JSONObject obj2 = new JSONObject(response);
                                 if (obj2.getString("status").equals("OK")) {
-                                    id=obj2.getInt("id");
+                                    RegisterCompanyActivity.id=obj2.getInt("id");
                                     dialog(obj2.getString("status"),obj2.getString("message"));
                                 } else if (obj2.getString("status").equals("ERROR")) {
                                     dialog(obj2.getString("status"),obj2.getString("message"));
@@ -101,7 +101,31 @@ public class RegisterClientActivity extends AppCompatActivity {
                     alerta.setNegativeButton("Cerrar" ,new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            startActivity(new Intent(RegisterClientActivity.this, MainClientActivity.class));
+                            JSONObject obj = null;
+                            try {
+                                obj = new JSONObject("{}");
+                                obj.put("id",RegisterCompanyActivity.id);
+                                UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/get_user", obj.toString(), (response) -> {
+                                    try {
+                                        JSONObject obj2 = new JSONObject(response);
+                                        if (obj2.getString("status").equals("OK")) {
+                                            JSONObject user  = obj2.getJSONObject("user");
+                                            RegisterCompanyActivity.name=user.getString("nombre");
+                                            RegisterCompanyActivity.surname=user.getString("apellidos");
+                                            RegisterCompanyActivity.mail=user.getString("correo");
+                                            RegisterCompanyActivity.phone=user.getString("telefono");
+                                        } else if (obj2.getString("status").equals("ERROR")) {
+                                            dialog(obj2.getString("status"),obj2.getString("message"));
+
+                                        }
+                                    } catch (JSONException e) {
+                                        System.out.println();
+                                    }
+                                });
+                                startActivity(new Intent(RegisterClientActivity.this, MainClientActivity.class));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     });
                     alerta.show();

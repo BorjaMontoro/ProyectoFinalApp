@@ -43,15 +43,38 @@ public class LoginActivity extends AppCompatActivity {
                                 JSONObject obj2 = new JSONObject(response);
                                 if (obj2.getString("status").equals("OK")) {
                                     dialog(obj2.getString("status"),obj2.getString("message"));
+                                    RegisterCompanyActivity.id=obj2.getInt("id");
+                                    JSONObject obj5 = null;
+                                    try {
+                                        obj5 = new JSONObject("{}");
+                                        obj5.put("id",RegisterCompanyActivity.id);
+                                        UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/get_user", obj.toString(), (response3) -> {
+                                            try {
+                                                JSONObject obj6 = new JSONObject(response3);
+                                                if (obj6.getString("status").equals("OK")) {
+                                                    JSONObject user  = obj6.getJSONObject("user");
+                                                    RegisterCompanyActivity.name=user.getString("nombre");
+                                                    RegisterCompanyActivity.surname=user.getString("apellidos");
+                                                    RegisterCompanyActivity.mail=user.getString("correo");
+                                                    RegisterCompanyActivity.phone=user.getString("telefono");
+                                                } else if (obj6.getString("status").equals("ERROR")) {
+                                                    dialog(obj6.getString("status"),obj6.getString("message"));
+
+                                                }
+                                            } catch (JSONException e) {
+                                                System.out.println();
+                                            }
+                                        });
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                     if(obj2.getInt("esEmpresa")==0) {
-                                        RegisterClientActivity.id=obj2.getInt("id");
                                         startActivity(new Intent(LoginActivity.this,MainClientActivity.class));
                                     }
                                     else if(obj2.getInt("esEmpresa")==1) {
-                                        RegisterClientActivity.id=obj2.getInt("id");
                                         try {
                                             JSONObject obj3 = new JSONObject("{}");
-                                            obj3.put("id", RegisterClientActivity.id);
+                                            obj3.put("id", RegisterCompanyActivity.id);
                                             UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/have_advertisment", obj3.toString(), (response2) -> {
                                                 try {
                                                     JSONObject obj4 = new JSONObject(response2);

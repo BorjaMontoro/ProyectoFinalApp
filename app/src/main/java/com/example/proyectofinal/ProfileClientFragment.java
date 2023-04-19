@@ -1,5 +1,6 @@
 package com.example.proyectofinal;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,7 +64,9 @@ public class ProfileClientFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_profile_client, container, false);
-
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView nomAp = root.findViewById(R.id.nomApCli);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView telefono = root.findViewById(R.id.telefCli);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView correo = root.findViewById(R.id.correoCli);
         Button logout = root.findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override

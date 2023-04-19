@@ -1,5 +1,6 @@
 package com.example.proyectofinal;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -9,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,7 +64,11 @@ public class ProfileCompanyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_profile_company, container, false);
-
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView nombreComp = root.findViewById(R.id.nomComp);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView nomAp = root.findViewById(R.id.nomAp);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView telefono = root.findViewById(R.id.telef);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView correo = root.findViewById(R.id.correo);
+        ImageView imagen = root.findViewById(R.id.imageView2);
         Button logout = root.findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override

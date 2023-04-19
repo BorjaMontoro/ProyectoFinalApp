@@ -44,7 +44,7 @@ public class ActivityAnuncio extends AppCompatActivity {
     String[] horasSabado = new String[4];
     String[] horasDomingo = new String[4];
     TextView direccion;
-    TextView tipo;
+    Spinner tipo;
     String base64=null;
 
     @Override
@@ -202,12 +202,12 @@ public class ActivityAnuncio extends AppCompatActivity {
         enviarAnunci.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (base64!=null&&direccion.getText()!=null&&tipo.getText()!=null) {
+                if (base64!=null&&direccion.getText()!=null&&tipo.getSelectedItem()!=null) {
                     try {
                         JSONObject obj = null;
                         obj = new JSONObject("{}");
                         obj.put("id", RegisterClientActivity.id);
-                        obj.put("tipo", tipo.getText());
+                        obj.put("tipo", tipo.getSelectedItem());
                         obj.put("imagen", base64);
                         obj.put("direccion", direccion.getText());
                         obj.put("diaInicioLunes", horasLunes[0]);
