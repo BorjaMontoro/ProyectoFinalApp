@@ -6,9 +6,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +35,7 @@ public class ListadoServiciosFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private String empresa;
+    private RecyclerView recyclerView;
 
     public ListadoServiciosFragment(String empresa) {
         // Required empty public constructor
@@ -66,22 +73,52 @@ public class ListadoServiciosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_listado_servicios, container, false);
-        RecyclerView recyclerView = root.findViewById(R.id.recycler_view_servicios);
-        List<Servicio> listaServicios = obtenerListaServicios(); // Aquí debes obtener la lista de servicios desde algún lugar
+        recyclerView = root.findViewById(R.id.recycler_view_servicios);
 
-        ServiciosAdapter adapter = new ServiciosAdapter(listaServicios,empresa);
+        List<Servicio> servicios=new ArrayList<Servicio>();
+        ServiciosAdapter adapter = new ServiciosAdapter(servicios,empresa);
 
         recyclerView.setAdapter(adapter);
+
+        obtenerListaServicios();
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         // Inflate the layout for this fragment
         return root;
     }
-    public List<Servicio> obtenerListaServicios(){
-        List<Servicio> servicios=new ArrayList<Servicio>();
-        servicios.add(new Servicio("Cortar pelo","20.03"+"€","30m"));
-        servicios.add(new Servicio("Barba","5.03"+"€","15m"));
-        servicios.add(new Servicio("Maquillar","30.25"+"€","1h"));
-        servicios.add(new Servicio("Masaje","50.25"+"€","1:30h"));
-        return servicios;
+
+    public void obtenerListaServicios(){
+        try {
+            JSONObject obj = new JSONObject("{}");
+            obj.put("name", empresa);
+            UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/get_services", obj.toString(), (response) -> {
+                try {
+                    JSONObject obj2 = new JSONObject(response);
+                    JSONArray jsonArray=obj2.getJSONArray("services");
+                    List<Servicio> servicios=new ArrayList<Servicio>();
+
+                    for (int i=0;i<jsonArray.length();i++){
+                        JSONObject servicioIndividual=jsonArray.getJSONObject(i);
+                        servicios.add(new Servicio(servicioIndividual.getString("nombre"),servicioIndividual.getString("precio"),servicioIndividual.getString("duracion")));
+                    }
+
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            ServiciosAdapter adapter = new ServiciosAdapter(servicios,empresa);
+                            recyclerView.setAdapter(adapter);
+
+                        }
+                    });
+
+                } catch (JSONException e) {
+                    System.out.println();
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 }

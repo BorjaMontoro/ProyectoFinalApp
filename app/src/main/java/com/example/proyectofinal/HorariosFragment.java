@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,11 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,9 +36,13 @@ public class HorariosFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private String empresa;
+    private TextView phoneTextView;
+    private TableLayout hoursTableLayout;
 
-    public HorariosFragment() {
+    public HorariosFragment(String empresa) {
         // Required empty public constructor
+        this.empresa=empresa;
     }
 
     /**
@@ -43,8 +54,8 @@ public class HorariosFragment extends Fragment {
      * @return A new instance of fragment BlankFragment2.
      */
     // TODO: Rename and change types and number of parameters
-    public static HorariosFragment newInstance(String param1, String param2) {
-        HorariosFragment fragment = new HorariosFragment();
+    public static HorariosFragment newInstance(String param1, String param2, String empresa) {
+        HorariosFragment fragment = new HorariosFragment(empresa);
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -67,26 +78,10 @@ public class HorariosFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_horarios, container, false);
 
         // Inflate the layout for this fragment
-        TextView phoneTextView = root.findViewById(R.id.company_phone_text_view);
-        TableLayout hoursTableLayout = root.findViewById(R.id.hours_table);
+        phoneTextView = root.findViewById(R.id.company_phone_text_view);
+        hoursTableLayout = root.findViewById(R.id.hours_table);
 
-        // Crear una instancia de la clase CompanyInfo con los datos que queremos mostrar
-        CompanyInfo companyInfo = new CompanyInfo(
-                "673 70 60 50",
-                Arrays.asList("9:00"+" - "+"12:00", "14:00"+" - "+"20:00"),  // Horario del lunes
-                Arrays.asList("9:00"+" - "+"12:00", "14:00"+" - "+"20:00"),  // Horario del martes
-                Arrays.asList("9:00"+" - "+"12:00", "14:00"+" - "+"20:00"),  // Horario del miércoles
-                Arrays.asList("9:00"+" - "+"12:00", "14:00"+" - "+"20:00"),  // Horario del jueves
-                Arrays.asList("9:00"+" - "+"12:00", "14:00"+" - "+"20:00"),  // Horario del viernes
-                Arrays.asList("10:00"+" - "+"12:00"), // Horario del sábado
-                Arrays.asList("Cerrado")                                  // Horario del domingo
-        );
-
-        // Mostrar el número de teléfono de la empresa en el TextView correspondiente
-        phoneTextView.setText(companyInfo.getPhone());
-
-        // Mostrar los horarios de la empresa en la tabla correspondiente
-        setHoursTable(hoursTableLayout, companyInfo);
+        obtenerHorario();
 
         return root;
     }
@@ -147,5 +142,48 @@ public class HorariosFragment extends Fragment {
             tableLayout.addView(row);
 
         }
+    }
+
+    public void obtenerHorario(){
+        try {
+            JSONObject obj = new JSONObject("{}");
+            obj.put("name", empresa);
+            UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/get_shedule", obj.toString(), (response) -> {
+                try {
+                    JSONObject obj2 = new JSONObject(response);
+                    System.out.println(obj2.getString("phone"));
+
+                    CompanyInfo companyInfo = new CompanyInfo(
+                            obj2.getString("phone"),
+                            Arrays.asList(obj2.getString("lunes1rTurno"), obj2.getString("lunes2oTurno")),  // Horario del lunes
+                            Arrays.asList(obj2.getString("martes1rTurno"), obj2.getString("martes2oTurno")),  // Horario del martes
+                            Arrays.asList(obj2.getString("miercoles1rTurno"), obj2.getString("miercoles2oTurno")),  // Horario del miércoles
+                            Arrays.asList(obj2.getString("jueves1rTurno"), obj2.getString("jueves2oTurno")),  // Horario del jueves
+                            Arrays.asList(obj2.getString("viernes1rTurno"), obj2.getString("viernes2oTurno")),  // Horario del viernes
+                            Arrays.asList(obj2.getString("sabado1rTurno"), obj2.getString("sabado2oTurno")), // Horario del sábado
+                            Arrays.asList(obj2.getString("domingo1rTurno"), obj2.getString("domingo2oTurno")) // Horario del domingo
+                    );
+
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Mostrar el número de teléfono de la empresa en el TextView correspondiente
+                            phoneTextView.setText(companyInfo.getPhone());
+
+                            // Mostrar los horarios de la empresa en la tabla correspondiente
+                            setHoursTable(hoursTableLayout, companyInfo);
+
+                        }
+                    });
+
+                } catch (JSONException e) {
+                    System.out.println();
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 }

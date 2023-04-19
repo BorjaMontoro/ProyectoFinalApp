@@ -68,7 +68,7 @@ public class DetalleAnuncio extends AppCompatActivity {
 
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(new ListadoServiciosFragment((String) mNombreTextView.getText()));
-        fragmentList.add(new HorariosFragment());
+        fragmentList.add(new HorariosFragment((String) mNombreTextView.getText()));
 
         List<String> titleList = new ArrayList<>();
         titleList.add("Servicios");
@@ -114,8 +114,6 @@ public class DetalleAnuncio extends AppCompatActivity {
             }
         });
     }
-
-    // ...
 
 }
 
