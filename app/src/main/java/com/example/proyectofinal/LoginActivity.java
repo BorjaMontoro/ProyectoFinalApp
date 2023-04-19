@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
                                     dialog(obj2.getString("status"),obj2.getString("message"));
                                     RegisterCompanyActivity.id=obj2.getInt("id");
                                     JSONObject obj5 = null;
-                                    try {
+                                    /*try {
                                         obj5 = new JSONObject("{}");
                                         obj5.put("id",RegisterCompanyActivity.id);
                                         UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/get_user", obj.toString(), (response3) -> {
@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                                         });
                                     } catch (JSONException e) {
                                         e.printStackTrace();
-                                    }
+                                    }*/
                                     if(obj2.getInt("esEmpresa")==0) {
                                         startActivity(new Intent(LoginActivity.this,MainClientActivity.class));
                                     }

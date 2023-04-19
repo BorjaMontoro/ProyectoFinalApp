@@ -206,7 +206,7 @@ public class ActivityAnuncio extends AppCompatActivity {
                     try {
                         JSONObject obj = null;
                         obj = new JSONObject("{}");
-                        obj.put("id", RegisterClientActivity.id);
+                        obj.put("id", RegisterCompanyActivity.id);
                         obj.put("tipo", tipo.getSelectedItem());
                         obj.put("imagen", base64);
                         obj.put("direccion", direccion.getText());

@@ -82,7 +82,7 @@ public class ServicesFragment extends Fragment {
             public void onClick(View v) {
                 try {
                     JSONObject obj = new JSONObject("{}");
-                    obj.put("id",RegisterClientActivity.id);
+                    obj.put("id",RegisterCompanyActivity.id);
                     obj.put("name",nombre.getText());
                     obj.put("price",precio.getText());
                     obj.put("duration",duracion.getText());

@@ -71,7 +71,7 @@ public class ProfileClientFragment extends Fragment {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RegisterClientActivity.id=0;
+                RegisterCompanyActivity.id=0;
                 startActivity(new Intent(getActivity(),LoginActivity.class));
             }
         });
