@@ -151,7 +151,6 @@ public class HorariosFragment extends Fragment {
             UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/get_shedule", obj.toString(), (response) -> {
                 try {
                     JSONObject obj2 = new JSONObject(response);
-                    System.out.println(obj2.getString("phone"));
 
                     CompanyInfo companyInfo = new CompanyInfo(
                             obj2.getString("phone"),
