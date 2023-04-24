@@ -91,8 +91,6 @@ public class ReservarActivity extends AppCompatActivity {
                 int year = fechaSeleccionada.get(Calendar.YEAR);
                 int month = fechaSeleccionada.get(Calendar.MONTH);
                 int day = fechaSeleccionada.get(Calendar.DAY_OF_MONTH);
-                System.out.println(day+"---"+month+"---"+year);
-                System.out.println(selectedHora);
                 if(selectedHora.equals("Ninguna")){
                     dialog("ERROR","No hay horas disponibles para este dia");
                 }else{
@@ -142,9 +140,7 @@ public class ReservarActivity extends AppCompatActivity {
             UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/get_dates", obj.toString(), (response) -> {
                 try {
                     JSONObject obj2 = new JSONObject(response);
-                    System.out.println(obj2);
                     JSONArray jsonArray=obj2.getJSONArray("hours");
-                    System.out.println(jsonArray);
                     List<String> horasDisponibles=new ArrayList<>();
 
                     for (int i=0;i<jsonArray.length();i++){

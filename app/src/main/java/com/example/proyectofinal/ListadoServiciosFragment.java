@@ -99,7 +99,7 @@ public class ListadoServiciosFragment extends Fragment {
 
                     for (int i=0;i<jsonArray.length();i++){
                         JSONObject servicioIndividual=jsonArray.getJSONObject(i);
-                        servicios.add(new Servicio(servicioIndividual.getString("nombre"),servicioIndividual.getString("precio"),servicioIndividual.getString("duracion")));
+                        servicios.add(new Servicio(servicioIndividual.getString("nombre"),servicioIndividual.getString("precio")+" €",servicioIndividual.getString("duracion")));
                     }
 
                     Handler handler = new Handler(Looper.getMainLooper());

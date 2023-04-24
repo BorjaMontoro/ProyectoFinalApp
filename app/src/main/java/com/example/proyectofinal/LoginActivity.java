@@ -44,8 +44,8 @@ public class LoginActivity extends AppCompatActivity {
                                 if (obj2.getString("status").equals("OK")) {
                                     dialog(obj2.getString("status"),obj2.getString("message"));
                                     RegisterCompanyActivity.id=obj2.getInt("id");
-                                    /*JSONObject obj5 = null;
-                                    try {
+                                    JSONObject obj5 = null;
+                                    /*try {
                                         obj5 = new JSONObject("{}");
                                         obj5.put("id",RegisterCompanyActivity.id);
                                         UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/get_user", obj.toString(), (response3) -> {

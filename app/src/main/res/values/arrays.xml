@@ -14,6 +14,19 @@
         <item>Nutrición</item>
         <item>Medicina alternativa</item>
     </string-array>
+    <string-array name="crear_anuncio">
+        <item>Peluquería</item>
+        <item>Spa</item>
+        <item>Salón de belleza</item>
+        <item>Estética</item>
+        <item>Quiropráctico</item>
+        <item>Masajes</item>
+        <item>Yoga</item>
+        <item>Pilates</item>
+        <item>Gimnasio</item>
+        <item>Nutrición</item>
+        <item>Medicina alternativa</item>
+    </string-array>
     <string-array name="dias_semana">
         <item>Lunes</item>
         <item>Martes</item>

@@ -108,7 +108,7 @@ public class RegisterCompanyActivity extends AppCompatActivity {
                     alerta.setNegativeButton("Cerrar" ,new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            JSONObject obj = null;
+                            /*JSONObject obj = null;
                             try {
                                 obj = new JSONObject("{}");
                                 obj.put("id",id);
@@ -132,7 +132,8 @@ public class RegisterCompanyActivity extends AppCompatActivity {
                                 startActivity(new Intent(RegisterCompanyActivity.this, ActivityAnuncio.class));
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                            }
+                            }*/
+                            startActivity(new Intent(RegisterCompanyActivity.this, ActivityAnuncio.class));
                         }
                     });
                     alerta.show();
