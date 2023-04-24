@@ -62,10 +62,10 @@ public class ActivityAnuncio extends AppCompatActivity {
             }
         });
         Button horario = findViewById(R.id.button4);
-        String hora1="nada";
-        String hora2="nada";
-        String hora3="nada";
-        String hora4="nada";
+        String hora1="";
+        String hora2="";
+        String hora3="";
+        String hora4="";
         horasLunes[0]=hora1;
         horasLunes[1]=hora2;
         horasLunes[2]=hora3;
@@ -206,7 +206,7 @@ public class ActivityAnuncio extends AppCompatActivity {
                     try {
                         JSONObject obj = null;
                         obj = new JSONObject("{}");
-                        obj.put("id", RegisterClientActivity.id);
+                        obj.put("id", RegisterCompanyActivity.id);
                         obj.put("tipo", tipo.getSelectedItem());
                         obj.put("imagen", base64);
                         obj.put("direccion", direccion.getText());
