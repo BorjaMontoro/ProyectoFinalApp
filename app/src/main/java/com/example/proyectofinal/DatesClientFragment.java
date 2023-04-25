@@ -58,7 +58,9 @@ public class DatesClientFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_dates_client, container, false);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dates_client, container, false);
+        return root;
     }
 }
