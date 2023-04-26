@@ -3,10 +3,18 @@ package com.example.proyectofinal;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,7 +67,47 @@ public class DatesClientFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_dates_client, container, false);
+        TabLayout tabLayout = root.findViewById(R.id.tab_layout);
+        ViewPager2 viewPager2 = root.findViewById(R.id.view_pager);
 
+        List<Fragment> fragmentList = new ArrayList<>();
+        fragmentList.add(new DatesPendingClientFragment());
+        fragmentList.add(new DatesCompletedClientFragment());
+
+        List<String> titleList = new ArrayList<>();
+        titleList.add("Pendientes");
+        titleList.add("Completadas");
+
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getParentFragmentManager(), getLifecycle(), fragmentList);
+
+        viewPager2.setAdapter(adapter);
+
+        new TabLayoutMediator(tabLayout, viewPager2,
+                (tab, position) -> tab.setText(titleList.get(position))
+        ).attach();
+
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                tabLayout.selectTab(tabLayout.getTabAt(position));
+            }
+        });
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager2.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
         // Inflate the layout for this fragment
         return root;
     }

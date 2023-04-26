@@ -74,7 +74,7 @@ public class ServicesFragment extends Fragment {
 
         Button addService = root.findViewById(R.id.buttonServicio);
         TextView nombre = root.findViewById(R.id.inputNombre);
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView duracion = root.findViewById(R.id.inputDuracion);
+        TextView duracion = root.findViewById(R.id.inputDuracion);
         TextView precio = root.findViewById(R.id.inputPrecio);
 
         addService.setOnClickListener(new View.OnClickListener() {

@@ -29,8 +29,6 @@ public class DetalleAnuncio extends AppCompatActivity {
     private TextView mNombreTextView;
     private TextView mDireccionTextView;
     private TextView mTipoTextView;
-    private TextView mHorarioTextView;
-    private TextView mServiciosTextView;
 
     private DetalleAnuncioViewModel mViewModel;
 
