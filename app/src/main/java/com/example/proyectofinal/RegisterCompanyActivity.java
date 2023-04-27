@@ -22,7 +22,7 @@ public class RegisterCompanyActivity extends AppCompatActivity {
     EditText nombreEmpresa,nombre,apellidos,correo,telefono,password,compPassword;
     TextView loginText;
     public static int id;
-    public static String name,surname,mail,phone;
+    public static String name,surname,mail,phone,companyName,companyImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,7 +108,7 @@ public class RegisterCompanyActivity extends AppCompatActivity {
                     alerta.setNegativeButton("Cerrar" ,new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            /*JSONObject obj = null;
+                            JSONObject obj = null;
                             try {
                                 obj = new JSONObject("{}");
                                 obj.put("id",id);
@@ -116,11 +116,13 @@ public class RegisterCompanyActivity extends AppCompatActivity {
                                     try {
                                         JSONObject obj2 = new JSONObject(response);
                                         if (obj2.getString("status").equals("OK")) {
-                                            JSONObject user  = obj2.getJSONObject("user");
+                                            JSONArray userList  = obj2.getJSONArray("user");
+                                            JSONObject user = (JSONObject) userList.get(0);
                                             RegisterCompanyActivity.name=user.getString("nombre");
                                             RegisterCompanyActivity.surname=user.getString("apellidos");
                                             RegisterCompanyActivity.mail=user.getString("correo");
                                             RegisterCompanyActivity.phone=user.getString("telefono");
+                                            RegisterCompanyActivity.companyName=user.getString("nombreEmpresa");
                                         } else if (obj2.getString("status").equals("ERROR")) {
                                             dialog(obj2.getString("status"),obj2.getString("message"));
 
@@ -132,7 +134,7 @@ public class RegisterCompanyActivity extends AppCompatActivity {
                                 startActivity(new Intent(RegisterCompanyActivity.this, ActivityAnuncio.class));
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                            }*/
+                            }
                             startActivity(new Intent(RegisterCompanyActivity.this, ActivityAnuncio.class));
                         }
                     });
