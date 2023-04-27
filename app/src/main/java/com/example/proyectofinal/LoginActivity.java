@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,29 +46,50 @@ public class LoginActivity extends AppCompatActivity {
                                     dialog(obj2.getString("status"),obj2.getString("message"));
                                     RegisterCompanyActivity.id=obj2.getInt("id");
                                     JSONObject obj5 = null;
-                                    /*try {
+                                    try {
                                         obj5 = new JSONObject("{}");
                                         obj5.put("id",RegisterCompanyActivity.id);
-                                        UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/get_user", obj.toString(), (response3) -> {
+                                        UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/get_user", obj5.toString(), (response3) -> {
                                             try {
                                                 JSONObject obj6 = new JSONObject(response3);
+                                                System.out.println(obj6);
                                                 if (obj6.getString("status").equals("OK")) {
-                                                    JSONObject user  = obj6.getJSONObject("user");
+                                                    JSONArray userList  = obj6.getJSONArray("user");
+                                                    JSONObject user = (JSONObject) userList.get(0);
+                                                    System.out.println(user);
                                                     RegisterCompanyActivity.name=user.getString("nombre");
                                                     RegisterCompanyActivity.surname=user.getString("apellidos");
                                                     RegisterCompanyActivity.mail=user.getString("correo");
                                                     RegisterCompanyActivity.phone=user.getString("telefono");
+                                                    if(user.getInt("esEmpresa")==1){
+                                                        RegisterCompanyActivity.companyName=user.getString("nombreEmpresa");
+                                                        JSONObject obj7 = new JSONObject("{}");
+                                                        obj7.put("id",RegisterCompanyActivity.id);
+                                                        UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/get_image", obj7.toString(), (response4) -> {
+                                                            try {
+                                                                JSONObject obj8 = new JSONObject(response4);
+                                                                System.out.println(obj6);
+                                                                if (obj8.getString("status").equals("OK")) {
+                                                                    System.out.println(obj8);
+                                                                    JSONArray imageList = obj8.getJSONArray("anuncio");
+                                                                    JSONObject image = (JSONObject) imageList.get(0);
+                                                                    RegisterCompanyActivity.companyImage=image.getString("imagen");
+                                                                }
+                                                            } catch (JSONException e) {
+                                                                e.printStackTrace();
+                                                            }
+                                                        });
+                                                    }
                                                 } else if (obj6.getString("status").equals("ERROR")) {
                                                     dialog(obj6.getString("status"),obj6.getString("message"));
-
                                                 }
                                             } catch (JSONException e) {
-                                                System.out.println();
+                                                e.printStackTrace();
                                             }
                                         });
                                     } catch (JSONException e) {
                                         e.printStackTrace();
-                                    }*/
+                                    }
                                     if(obj2.getInt("esEmpresa")==0) {
                                         startActivity(new Intent(LoginActivity.this,MainClientActivity.class));
                                     }

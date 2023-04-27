@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -102,7 +103,7 @@ public class RegisterClientActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
-                            /*JSONObject obj = null;
+                            JSONObject obj = null;
                             try {
                                 obj = new JSONObject("{}");
                                 obj.put("id",RegisterCompanyActivity.id);
@@ -110,7 +111,8 @@ public class RegisterClientActivity extends AppCompatActivity {
                                     try {
                                         JSONObject obj2 = new JSONObject(response);
                                         if (obj2.getString("status").equals("OK")) {
-                                            JSONObject user  = obj2.getJSONObject("user");
+                                            JSONArray userList  = obj2.getJSONArray("user");
+                                            JSONObject user = (JSONObject) userList.get(0);
                                             RegisterCompanyActivity.name=user.getString("nombre");
                                             RegisterCompanyActivity.surname=user.getString("apellidos");
                                             RegisterCompanyActivity.mail=user.getString("correo");
@@ -126,7 +128,7 @@ public class RegisterClientActivity extends AppCompatActivity {
                                 startActivity(new Intent(RegisterClientActivity.this, MainClientActivity.class));
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                            }*/
+                            }
                             startActivity(new Intent(RegisterClientActivity.this, MainClientActivity.class));
 
                         }

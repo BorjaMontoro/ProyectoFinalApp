@@ -75,7 +75,12 @@ public class ProfileClientFragment extends Fragment {
                 startActivity(new Intent(getActivity(),LoginActivity.class));
             }
         });
-
+        TextView nom=root.findViewById(R.id.nomApCli);
+        TextView telefon = root.findViewById(R.id.telefCli);
+        TextView correo1 = root.findViewById(R.id.correoCli);
+        nom.setText(RegisterCompanyActivity.name+" "+RegisterCompanyActivity.surname);
+        telefon.setText(RegisterCompanyActivity.phone);
+        correo1.setText(RegisterCompanyActivity.mail);
         // Inflate the layout for this fragment
         return root;
     }

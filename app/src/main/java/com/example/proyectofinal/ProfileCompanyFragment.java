@@ -2,10 +2,13 @@ package com.example.proyectofinal;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +80,20 @@ public class ProfileCompanyFragment extends Fragment {
                 startActivity(new Intent(getActivity(),LoginActivity.class));
             }
         });
-
+        TextView nom=root.findViewById(R.id.nomAp);
+        TextView telefon = root.findViewById(R.id.telef);
+        TextView correo1 = root.findViewById(R.id.correo);
+        TextView empresa = root.findViewById(R.id.nomComp);
+        ImageView imgVw = root.findViewById(R.id.imageView2);
+        nom.setText(RegisterCompanyActivity.name+" "+RegisterCompanyActivity.surname);
+        telefon.setText(RegisterCompanyActivity.phone);
+        correo1.setText(RegisterCompanyActivity.mail);
+        empresa.setText(RegisterCompanyActivity.companyName);
+        byte[] imageBytes = Base64.decode(RegisterCompanyActivity.companyImage, Base64.DEFAULT);
+        System.out.println("Hola");
+        Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+        System.out.println("Hola2");
+        imgVw.setImageBitmap(bitmap);
         // Inflate the layout for this fragment
         return root;
     }
