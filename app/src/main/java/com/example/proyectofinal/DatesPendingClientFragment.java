@@ -74,6 +74,10 @@ public class DatesPendingClientFragment extends Fragment {
         List<DateClient> citas=new ArrayList<DateClient>();
         citas.add(new DateClient("Cortar pelo","Elite","Octubre","8","11:30", "2023"));
         citas.add(new DateClient("Cortar pelo","Elite","Noviembre","22","8:30", "2023"));
+        citas.add(new DateClient("Cortar pelo","Elite","Noviembre","22","8:30", "2023"));
+
+        citas.add(new DateClient("Cortar pelo","Elite","Noviembre","22","8:30", "2023"));
+        citas.add(new DateClient("Cortar pelo","Elite","Noviembre","22","8:30", "2023"));
 
 
         dateClientAdapter = new DateClientAdapter(getContext(), citas);
