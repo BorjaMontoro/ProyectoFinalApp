@@ -2,11 +2,18 @@ package com.example.proyectofinal;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +30,12 @@ public class DatesCompanyFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private CalendarView calendarView;
+    private RecyclerView citasRecyclerView;
+    private DateCompanyAdapter citasAdapter;
+    private List<DateCompany> citas;
+
 
     public DatesCompanyFragment() {
         // Required empty public constructor
@@ -59,6 +72,37 @@ public class DatesCompanyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dates_company, container, false);
+        View root = inflater.inflate(R.layout.fragment_dates_company, container, false);
+
+        calendarView = root.findViewById(R.id.calendarView);
+        citasRecyclerView = root.findViewById(R.id.recyclerView);
+
+        // Configurar el adapter del RecyclerView
+        citas = new ArrayList<>();
+        citas.add(new DateCompany("Borja Montoro Plaza","Baño suizo", "9:30"));
+        citas.add(new DateCompany("Pablo Munuera Garcia","Corte de pelo", "12:30"));
+        citasAdapter = new DateCompanyAdapter(citas);
+        citasRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        citasRecyclerView.setAdapter(citasAdapter);
+
+        // Establecer el listener del CalendarView
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
+                // Actualizar el RecyclerView con las citas correspondientes al día seleccionado
+                citas.clear();
+                citas.addAll(getAppointmentsForDay(year, month, day));
+                citasAdapter.setData(citas);
+
+            }
+        });
+        return root;
+    }
+    private List<DateCompany> getAppointmentsForDay(int year, int month, int day) {
+        // Implementar la lógica para obtener las citas de ese día
+        List<DateCompany> citas=new ArrayList<>();
+        citas.add(new DateCompany("Alex Martinez Gonzalez","Cortar barba", "8:00"));
+        citas.add(new DateCompany("Ignasi Mendez Fabra","Sesion maquillaje", "15:30"));
+        return citas;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.proyectofinal;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -47,6 +48,16 @@ public class MainClientActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout,fragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            // Ignorar el evento del botón de retroceso
+            return true;
+        }
+        // Dejar que otros eventos de tecla se procesen
+        return super.onKeyDown(keyCode, event);
     }
 
 }

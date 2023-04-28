@@ -19,13 +19,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
-
+    Button button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Button button = findViewById(R.id.button);
+        button = findViewById(R.id.button);
         TextView mail = findViewById(R.id.loginCorreos);
         TextView password = findViewById(R.id.loginPassword);
         TextView registerTextClient = findViewById(R.id.textViewSignUpClient);
@@ -34,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                button.setEnabled(false);
                 if (mail.getText()!=null && password.getText()!=null) {
                     try {
                         JSONObject obj = new JSONObject("{}");
@@ -90,6 +91,13 @@ public class LoginActivity extends AppCompatActivity {
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
+                                    Handler handler = new Handler(Looper.getMainLooper());
+                                    handler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            button.setEnabled(true);
+                                        }
+                                    });
                                     if(obj2.getInt("esEmpresa")==0) {
                                         startActivity(new Intent(LoginActivity.this,MainClientActivity.class));
                                     }
@@ -160,7 +168,13 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.cancel();
+                            button.setEnabled(true);
                         }
+                    });
+                    alerta.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        public void onCancel(DialogInterface dialog) {
+                            dialog.cancel();
+                            button.setEnabled(true);                        }
                     });
                     alerta.show();
                 }

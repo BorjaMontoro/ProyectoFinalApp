@@ -190,6 +190,12 @@ public class ReservarActivity extends AppCompatActivity {
                             dialog.cancel();
                         }
                     });
+                    alerta.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        public void onCancel(DialogInterface dialog) {
+                            dialog.cancel();
+                        }
+                    });
+
                     alerta.show();
                 }else if(status.equals("RESERVADO")){
                     AlertDialog.Builder alerta = new AlertDialog.Builder(ReservarActivity.this);
