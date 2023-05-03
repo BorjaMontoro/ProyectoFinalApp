@@ -4,11 +4,13 @@ public class DateCompany {
     private String name;
     private String service;
     private String time;
+    private String timeFinish;
 
-    public DateCompany(String name, String service, String time) {
+    public DateCompany(String name, String service, String time, String timeFinish) {
         this.name = name;
         this.service = service;
         this.time = time;
+        this.timeFinish = timeFinish;
     }
 
     public String getName() {
@@ -33,5 +35,13 @@ public class DateCompany {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getTimeFinish() {
+        return timeFinish;
+    }
+
+    public void setTimeFinish(String timeFinish) {
+        this.timeFinish = timeFinish;
     }
 }

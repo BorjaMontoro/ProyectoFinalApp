@@ -46,18 +46,21 @@ public class DateCompanyAdapter extends RecyclerView.Adapter<DateCompanyAdapter.
         private TextView tvName;
         private TextView tvService;
         private TextView tvTime;
+        private TextView tvTimeFinish;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.name_usu_text_view);
             tvService = itemView.findViewById(R.id.service_name_text_view);
             tvTime = itemView.findViewById(R.id.time_text_view);
+            tvTimeFinish = itemView.findViewById(R.id.finish_time_text_view);
         }
 
         public void bind(DateCompany cita) {
             tvName.setText(cita.getName());
             tvService.setText(cita.getService());
             tvTime.setText(cita.getTime());
+            tvTimeFinish.setText(cita.getTimeFinish());
         }
     }
 }

@@ -79,8 +79,8 @@ public class DatesCompanyFragment extends Fragment {
 
         // Configurar el adapter del RecyclerView
         citas = new ArrayList<>();
-        citas.add(new DateCompany("Borja Montoro Plaza","Baño suizo", "9:30"));
-        citas.add(new DateCompany("Pablo Munuera Garcia","Corte de pelo", "12:30"));
+        citas.add(new DateCompany("Borja Montoro Plaza","Baño suizo", "9:30","10:00"));
+        citas.add(new DateCompany("Pablo Munuera Garcia","Corte de pelo", "12:30","13:00"));
         citasAdapter = new DateCompanyAdapter(citas);
         citasRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         citasRecyclerView.setAdapter(citasAdapter);
@@ -101,8 +101,8 @@ public class DatesCompanyFragment extends Fragment {
     private List<DateCompany> getAppointmentsForDay(int year, int month, int day) {
         // Implementar la lógica para obtener las citas de ese día
         List<DateCompany> citas=new ArrayList<>();
-        citas.add(new DateCompany("Alex Martinez Gonzalez","Cortar barba", "8:00"));
-        citas.add(new DateCompany("Ignasi Mendez Fabra","Sesion maquillaje", "15:30"));
+        citas.add(new DateCompany("Alex Martinez Gonzalez","Cortar barba", "8:00","8:30"));
+        citas.add(new DateCompany("Ignasi Mendez Fabra","Sesion maquillaje", "15:30","16:00"));
         return citas;
     }
 }
