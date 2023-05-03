@@ -24,7 +24,9 @@ public class MainCompanyActivity extends AppCompatActivity {
         binding = ActivityMainCompanyBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         BottomNavigationView bottom=findViewById(R.id.nav_view);
-        replaceFragment(new ServicesFragment());
+        replaceFragment(new DatesCompanyFragment());
+        bottom.setSelectedItemId(R.id.Dates);
+
 
         bottom.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
