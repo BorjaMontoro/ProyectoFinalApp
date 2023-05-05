@@ -69,12 +69,10 @@ public class LoginActivity extends AppCompatActivity {
                                                         UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/get_image", obj7.toString(), (response4) -> {
                                                             try {
                                                                 JSONObject obj8 = new JSONObject(response4);
-                                                                System.out.println(obj6);
+                                                                System.out.println(obj8);
                                                                 if (obj8.getString("status").equals("OK")) {
-                                                                    System.out.println(obj8);
-                                                                    JSONArray imageList = obj8.getJSONArray("anuncio");
-                                                                    JSONObject image = (JSONObject) imageList.get(0);
-                                                                    RegisterCompanyActivity.companyImage=image.getString("imagen");
+                                                                    System.out.println(obj8.getString("anuncio"));
+                                                                    RegisterCompanyActivity.companyImage=obj8.getString("anuncio");
                                                                 }
                                                             } catch (JSONException e) {
                                                                 e.printStackTrace();

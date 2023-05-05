@@ -129,8 +129,6 @@ public class SearchFragment extends Fragment implements AnunciosAdapter.OnAnunci
             }
         });
 
-        generarDatos();
-
         return root;
     }
 
