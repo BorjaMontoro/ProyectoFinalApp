@@ -6,10 +6,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,5 +89,39 @@ public class DatesPendingClientFragment extends Fragment {
         dateClientAdapter = new DateClientAdapter(getContext(), citas);
         recyclerView.setAdapter(dateClientAdapter);
         return root;
+    }
+
+    private void loadDates(){
+        try {
+            JSONObject obj = new JSONObject("{}");
+            obj.put("id", RegisterCompanyActivity.id);
+            obj.put("status", "Pending");
+            UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/get_client_dates", obj.toString(), (response) -> {
+                try {
+                    JSONObject obj2 = new JSONObject(response);
+                    JSONArray jsonArray=obj2.getJSONArray("hours");
+                    List<String> horasDisponibles=new ArrayList<>();
+
+                    for (int i=0;i<jsonArray.length();i++){
+                        horasDisponibles.add(jsonArray.getString(i));
+                    }
+
+
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            //HorasAdapter adapter = new HorasAdapter(horasDisponibles,ReservarActivity.this);
+                            //listaHorasDisponibles.setAdapter(adapter);
+                        }
+                    });
+
+                } catch (JSONException e) {
+                    System.out.println();
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
