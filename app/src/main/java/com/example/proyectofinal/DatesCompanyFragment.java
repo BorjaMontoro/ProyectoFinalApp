@@ -7,12 +7,19 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -34,8 +41,6 @@ public class DatesCompanyFragment extends Fragment {
     private CalendarView calendarView;
     private RecyclerView citasRecyclerView;
     private DateCompanyAdapter citasAdapter;
-    private List<DateCompany> citas;
-
 
     public DatesCompanyFragment() {
         // Required empty public constructor
@@ -76,33 +81,63 @@ public class DatesCompanyFragment extends Fragment {
 
         calendarView = root.findViewById(R.id.calendarView);
         citasRecyclerView = root.findViewById(R.id.recyclerView);
+        calendarView.setFirstDayOfWeek(Calendar.MONDAY);
 
-        // Configurar el adapter del RecyclerView
-        citas = new ArrayList<>();
-        citas.add(new DateCompany("Borja Montoro Plaza","Baño suizo", "9:30","10:00"));
-        citas.add(new DateCompany("Pablo Munuera Garcia","Corte de pelo", "12:30","13:00"));
-        citasAdapter = new DateCompanyAdapter(citas);
         citasRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        List<DateCompany> citas = new ArrayList<>();
+        citasAdapter = new DateCompanyAdapter(citas);
         citasRecyclerView.setAdapter(citasAdapter);
+
+        Calendar fechaSeleccionada = Calendar.getInstance();
+        calendarView.setDate(fechaSeleccionada.getTimeInMillis());
+        int year = fechaSeleccionada.get(Calendar.YEAR);
+        int month = fechaSeleccionada.get(Calendar.MONTH);
+        int day = fechaSeleccionada.get(Calendar.DAY_OF_MONTH);
+        loadDates(year,month,day);
 
         // Establecer el listener del CalendarView
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
                 // Actualizar el RecyclerView con las citas correspondientes al día seleccionado
-                citas.clear();
-                citas.addAll(getAppointmentsForDay(year, month, day));
-                citasAdapter.setData(citas);
-
+                loadDates(year,month,day);
             }
         });
         return root;
     }
-    private List<DateCompany> getAppointmentsForDay(int year, int month, int day) {
-        // Implementar la lógica para obtener las citas de ese día
-        List<DateCompany> citas=new ArrayList<>();
-        citas.add(new DateCompany("Alex Martinez Gonzalez","Cortar barba", "8:00","8:30"));
-        citas.add(new DateCompany("Ignasi Mendez Fabra","Sesion maquillaje", "15:30","16:00"));
-        return citas;
+
+    private void loadDates(int year, int month, int day){
+        try {
+            JSONObject obj = new JSONObject("{}");
+            obj.put("id", RegisterCompanyActivity.id);
+            obj.put("year", year);
+            obj.put("month", month);
+            obj.put("day", day);
+
+            UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/get_company_dates", obj.toString(), (response) -> {
+                try {
+                    JSONObject obj2 = new JSONObject(response);
+                    JSONArray jsonArray=obj2.getJSONArray("citas");
+                    List<DateCompany> citas=new ArrayList<DateCompany>();
+                    for (int i=0;i<jsonArray.length();i++){
+                        JSONObject cita=jsonArray.getJSONObject(i);
+                        citas.add(new DateCompany(cita.getString("nombreUsuario"),cita.getString("nombreServicio"),cita.getString("horaInicio"),cita.getString("horaFin")));
+                    }
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            citasAdapter = new DateCompanyAdapter(citas);
+                            citasRecyclerView.setAdapter(citasAdapter);
+                        }
+                    });
+
+                } catch (JSONException e) {
+                    System.out.println();
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

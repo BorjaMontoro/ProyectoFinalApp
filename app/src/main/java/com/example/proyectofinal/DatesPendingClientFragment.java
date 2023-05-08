@@ -78,16 +78,10 @@ public class DatesPendingClientFragment extends Fragment {
         recyclerView = root.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         List<DateClient> citas=new ArrayList<DateClient>();
-        citas.add(new DateClient("Cortar pelo","Elite","Octubre","8","11:30", "2023"));
-        citas.add(new DateClient("Cortar pelo","Elite","Noviembre","22","8:30", "2023"));
-        citas.add(new DateClient("Cortar pelo","Elite","Noviembre","22","8:30", "2023"));
-
-        citas.add(new DateClient("Cortar pelo","Elite","Noviembre","22","8:30", "2023"));
-        citas.add(new DateClient("Cortar pelo","Elite","Noviembre","23","8:30", "2023"));
-
 
         dateClientAdapter = new DateClientAdapter(getContext(), citas);
         recyclerView.setAdapter(dateClientAdapter);
+        loadDates();
         return root;
     }
 
@@ -99,20 +93,20 @@ public class DatesPendingClientFragment extends Fragment {
             UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/get_client_dates", obj.toString(), (response) -> {
                 try {
                     JSONObject obj2 = new JSONObject(response);
-                    JSONArray jsonArray=obj2.getJSONArray("hours");
-                    List<String> horasDisponibles=new ArrayList<>();
+                    JSONArray jsonArray=obj2.getJSONArray("citas");
+                    List<DateClient> citas=new ArrayList<DateClient>();
 
                     for (int i=0;i<jsonArray.length();i++){
-                        horasDisponibles.add(jsonArray.getString(i));
+                        JSONObject cita=jsonArray.getJSONObject(i);
+                        citas.add(new DateClient(cita.getString("nombreServicio"),cita.getString("nombreEmpresa"),cita.getString("mes"),Integer.toString(cita.getInt("dia")),cita.getString("hora"),Integer.toString(cita.getInt("year"))));
                     }
-
 
                     Handler handler = new Handler(Looper.getMainLooper());
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            //HorasAdapter adapter = new HorasAdapter(horasDisponibles,ReservarActivity.this);
-                            //listaHorasDisponibles.setAdapter(adapter);
+                            dateClientAdapter = new DateClientAdapter(getContext(), citas);
+                            recyclerView.setAdapter(dateClientAdapter);
                         }
                     });
 

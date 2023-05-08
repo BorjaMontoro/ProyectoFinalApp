@@ -6,9 +6,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,17 +78,44 @@ public class DatesCompletedClientFragment extends Fragment {
         recyclerView = root.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         List<DateClient> citas=new ArrayList<DateClient>();
-        citas.add(new DateClient("Cortar pelo","Elite","Enero","8","11:30","2023"));
-        citas.add(new DateClient("Cortar pelo","Elite","Febrero","22","8:30", "2023"));
-        citas.add(new DateClient("Cortar pelo","Elite","Marzo","22","8:30", "2023"));
-        citas.add(new DateClient("Cortar pelo","Elite","Abril","22","8:30", "2023"));
-        citas.add(new DateClient("Cortar pelo","Elite","Mayo","22","8:30", "2023"));
-        citas.add(new DateClient("Cortar pelo","Elite","Junio","22","8:30", "2023"));
-
 
         dateClientAdapter = new DateClientAdapter(getContext(), citas);
         recyclerView.setAdapter(dateClientAdapter);
-
+        loadDates();
         return root;
+    }
+
+    private void loadDates(){
+        try {
+            JSONObject obj = new JSONObject("{}");
+            obj.put("id", RegisterCompanyActivity.id);
+            obj.put("status", "Complete");
+            UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/get_client_dates", obj.toString(), (response) -> {
+                try {
+                    JSONObject obj2 = new JSONObject(response);
+                    JSONArray jsonArray=obj2.getJSONArray("citas");
+                    List<DateClient> citas=new ArrayList<DateClient>();
+
+                    for (int i=0;i<jsonArray.length();i++){
+                        JSONObject cita=jsonArray.getJSONObject(i);
+                        citas.add(new DateClient(cita.getString("nombreServicio"),cita.getString("nombreEmpresa"),cita.getString("mes"),Integer.toString(cita.getInt("dia")),cita.getString("hora"),Integer.toString(cita.getInt("year"))));
+                    }
+
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            dateClientAdapter = new DateClientAdapter(getContext(), citas);
+                            recyclerView.setAdapter(dateClientAdapter);
+                        }
+                    });
+
+                } catch (JSONException e) {
+                    System.out.println();
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

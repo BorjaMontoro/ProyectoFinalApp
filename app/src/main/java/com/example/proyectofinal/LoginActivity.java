@@ -53,11 +53,9 @@ public class LoginActivity extends AppCompatActivity {
                                         UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/get_user", obj5.toString(), (response3) -> {
                                             try {
                                                 JSONObject obj6 = new JSONObject(response3);
-                                                System.out.println(obj6);
                                                 if (obj6.getString("status").equals("OK")) {
                                                     JSONArray userList  = obj6.getJSONArray("user");
                                                     JSONObject user = (JSONObject) userList.get(0);
-                                                    System.out.println(user);
                                                     RegisterCompanyActivity.name=user.getString("nombre");
                                                     RegisterCompanyActivity.surname=user.getString("apellidos");
                                                     RegisterCompanyActivity.mail=user.getString("correo");
@@ -69,9 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                                                         UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/get_image", obj7.toString(), (response4) -> {
                                                             try {
                                                                 JSONObject obj8 = new JSONObject(response4);
-                                                                System.out.println(obj8);
                                                                 if (obj8.getString("status").equals("OK")) {
-                                                                    System.out.println(obj8.getString("anuncio"));
                                                                     RegisterCompanyActivity.companyImage=obj8.getString("anuncio");
                                                                 }
                                                             } catch (JSONException e) {
