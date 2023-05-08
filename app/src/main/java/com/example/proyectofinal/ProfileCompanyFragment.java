@@ -67,17 +67,15 @@ public class ProfileCompanyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_profile_company, container, false);
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView nombreComp = root.findViewById(R.id.nomComp);
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView nomAp = root.findViewById(R.id.nomAp);
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView telefono = root.findViewById(R.id.telef);
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView correo = root.findViewById(R.id.correo);
-        ImageView imagen = root.findViewById(R.id.imageView2);
         Button logout = root.findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 RegisterCompanyActivity.id=0;
-                startActivity(new Intent(getActivity(),LoginActivity.class));
+                Intent intent = new Intent(getActivity(),LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                getActivity().finish();
             }
         });
         TextView nom=root.findViewById(R.id.nomAp);

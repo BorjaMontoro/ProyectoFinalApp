@@ -64,15 +64,15 @@ public class ProfileClientFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_profile_client, container, false);
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView nomAp = root.findViewById(R.id.nomApCli);
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView telefono = root.findViewById(R.id.telefCli);
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView correo = root.findViewById(R.id.correoCli);
         Button logout = root.findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 RegisterCompanyActivity.id=0;
-                startActivity(new Intent(getActivity(),LoginActivity.class));
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                getActivity().finish();
             }
         });
         TextView nom=root.findViewById(R.id.nomApCli);
