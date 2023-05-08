@@ -102,6 +102,7 @@ public class ReservarActivity extends AppCompatActivity {
                         obj.put("month", month);
                         obj.put("year", year);
                         obj.put("hour", selectedHora);
+                        obj.put("idUsu",RegisterCompanyActivity.id);
                         UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/save_date", obj.toString(), (response) -> {
                             try {
                                 JSONObject obj2 = new JSONObject(response);
