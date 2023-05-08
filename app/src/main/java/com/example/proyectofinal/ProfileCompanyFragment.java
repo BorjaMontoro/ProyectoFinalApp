@@ -90,9 +90,7 @@ public class ProfileCompanyFragment extends Fragment {
         correo1.setText(RegisterCompanyActivity.mail);
         empresa.setText(RegisterCompanyActivity.companyName);
         byte[] imageBytes = Base64.decode(RegisterCompanyActivity.companyImage, Base64.DEFAULT);
-        System.out.println("Hola");
         Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-        System.out.println("Hola2");
         imgVw.setImageBitmap(bitmap);
         // Inflate the layout for this fragment
         return root;
