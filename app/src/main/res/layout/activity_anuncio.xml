@@ -24,13 +24,14 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/tipo_cardview"
-            android:layout_width="395dp"
+            android:layout_width="375dp"
             android:layout_height="74dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.76"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.02">
@@ -56,13 +57,14 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/direccion_cardview"
-            android:layout_width="395dp"
+            android:layout_width="375dp"
             android:layout_height="77dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.812"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.166">
@@ -91,13 +93,14 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/horario_cardview"
-            android:layout_width="395dp"
+            android:layout_width="375dp"
             android:layout_height="266dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.812"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.541">
@@ -226,13 +229,14 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/foto_cardview"
-            android:layout_width="395dp"
+            android:layout_width="375dp"
             android:layout_height="71dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.812"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.881">
