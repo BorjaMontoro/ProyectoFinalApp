@@ -297,11 +297,9 @@ public class ActivityAnuncio extends AppCompatActivity {
                                 UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/get_user", obj5.toString(), (response3) -> {
                                     try {
                                         JSONObject obj6 = new JSONObject(response3);
-                                        System.out.println(obj6);
                                         if (obj6.getString("status").equals("OK")) {
                                             JSONArray userList  = obj6.getJSONArray("user");
                                             JSONObject user = (JSONObject) userList.get(0);
-                                            System.out.println(user);
                                             RegisterCompanyActivity.name=user.getString("nombre");
                                             RegisterCompanyActivity.surname=user.getString("apellidos");
                                             RegisterCompanyActivity.mail=user.getString("correo");
@@ -313,9 +311,7 @@ public class ActivityAnuncio extends AppCompatActivity {
                                                 UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/get_image", obj7.toString(), (response4) -> {
                                                     try {
                                                         JSONObject obj8 = new JSONObject(response4);
-                                                        System.out.println(obj8);
                                                         if (obj8.getString("status").equals("OK")) {
-                                                            System.out.println(obj8.getString("anuncio"));
                                                             RegisterCompanyActivity.companyImage=obj8.getString("anuncio");
                                                         }
                                                     } catch (JSONException e) {
@@ -333,30 +329,10 @@ public class ActivityAnuncio extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            try {
-                                JSONObject obj3 = new JSONObject("{}");
-                                obj3.put("id", RegisterCompanyActivity.id);
-                                UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/have_advertisment", obj3.toString(), (response2) -> {
-                                    try {
-                                        JSONObject obj4 = new JSONObject(response2);
-                                        if (obj4.getString("status").equals("OK")) {
-                                            if(obj4.getBoolean("anuncio")) {
-                                                startActivity(new Intent(ActivityAnuncio.this,MainCompanyActivity.class));
-                                            }
-                                            else if(!obj4.getBoolean("anuncio")) {
-                                                startActivity(new Intent(ActivityAnuncio.this, ActivityAnuncio.class));
-                                            }
-                                        } else if (obj4.getString("status").equals("ERROR")) {
-                                            dialog(obj4.getString("status"),obj4.getString("message"));
-
-                                        }
-                                    } catch (JSONException e) {
-                                        System.out.println();
-                                    }
-                                });
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                            Intent intent = new Intent(ActivityAnuncio.this,MainCompanyActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            finish();
                         }
                     });
                     alerta.show();

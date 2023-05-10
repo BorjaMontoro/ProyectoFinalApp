@@ -205,14 +205,19 @@ public class ReservarActivity extends AppCompatActivity {
                     alerta.setNegativeButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                            startActivity(new Intent(ReservarActivity.this,MainClientActivity.class));
+                            Intent intent = new Intent(ReservarActivity.this,MainClientActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            finish();
                         }
                     });
 
                     alerta.setOnCancelListener(new DialogInterface.OnCancelListener() {
                         public void onCancel(DialogInterface dialog) {
-                            startActivity(new Intent(ReservarActivity.this,MainClientActivity.class));
+                            Intent intent = new Intent(ReservarActivity.this,MainClientActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            finish();
                         }
                     });
 

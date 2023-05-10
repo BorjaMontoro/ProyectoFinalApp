@@ -93,7 +93,10 @@ public class LoginActivity extends AppCompatActivity {
                                         }
                                     });
                                     if(obj2.getInt("esEmpresa")==0) {
-                                        startActivity(new Intent(LoginActivity.this,MainClientActivity.class));
+                                        Intent intent = new Intent(LoginActivity.this,MainClientActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(intent);
+                                        finish();
                                     }
                                     else if(obj2.getInt("esEmpresa")==1) {
                                         try {
@@ -104,10 +107,16 @@ public class LoginActivity extends AppCompatActivity {
                                                     JSONObject obj4 = new JSONObject(response2);
                                                     if (obj4.getString("status").equals("OK")) {
                                                         if(obj4.getBoolean("anuncio")) {
-                                                            startActivity(new Intent(LoginActivity.this,MainCompanyActivity.class));
+                                                            Intent intent = new Intent(LoginActivity.this,MainCompanyActivity.class);
+                                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                            startActivity(intent);
+                                                            finish();
                                                         }
                                                         else if(!obj4.getBoolean("anuncio")) {
-                                                            startActivity(new Intent(LoginActivity.this, ActivityAnuncio.class));
+                                                            Intent intent = new Intent(LoginActivity.this,ActivityAnuncio.class);
+                                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                            startActivity(intent);
+                                                            finish();
                                                         }
                                                     } else if (obj4.getString("status").equals("ERROR")) {
                                                         dialog(obj4.getString("status"),obj4.getString("message"));
@@ -175,16 +184,6 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            // Ignorar el evento del botón de retroceso
-            return true;
-        }
-        // Dejar que otros eventos de tecla se procesen
-        return super.onKeyDown(keyCode, event);
     }
 
 }

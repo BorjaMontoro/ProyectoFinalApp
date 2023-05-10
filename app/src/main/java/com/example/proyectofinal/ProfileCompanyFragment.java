@@ -73,7 +73,7 @@ public class ProfileCompanyFragment extends Fragment {
             public void onClick(View v) {
                 RegisterCompanyActivity.id=0;
                 Intent intent = new Intent(getActivity(),LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 getActivity().finish();
             }

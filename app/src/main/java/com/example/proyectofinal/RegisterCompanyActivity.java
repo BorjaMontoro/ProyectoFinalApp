@@ -131,11 +131,13 @@ public class RegisterCompanyActivity extends AppCompatActivity {
                                         System.out.println();
                                     }
                                 });
-                                startActivity(new Intent(RegisterCompanyActivity.this, ActivityAnuncio.class));
+                                Intent intent = new Intent(RegisterCompanyActivity.this,ActivityAnuncio.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                                finish();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            startActivity(new Intent(RegisterCompanyActivity.this, ActivityAnuncio.class));
                         }
                     });
                     alerta.show();
