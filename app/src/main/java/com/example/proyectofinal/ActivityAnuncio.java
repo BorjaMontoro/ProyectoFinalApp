@@ -335,6 +335,54 @@ public class ActivityAnuncio extends AppCompatActivity {
                             finish();
                         }
                     });
+                    alerta.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+                            JSONObject obj5 = null;
+                            try {
+                                obj5 = new JSONObject("{}");
+                                obj5.put("id",RegisterCompanyActivity.id);
+                                UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/get_user", obj5.toString(), (response3) -> {
+                                    try {
+                                        JSONObject obj6 = new JSONObject(response3);
+                                        if (obj6.getString("status").equals("OK")) {
+                                            JSONArray userList  = obj6.getJSONArray("user");
+                                            JSONObject user = (JSONObject) userList.get(0);
+                                            RegisterCompanyActivity.name=user.getString("nombre");
+                                            RegisterCompanyActivity.surname=user.getString("apellidos");
+                                            RegisterCompanyActivity.mail=user.getString("correo");
+                                            RegisterCompanyActivity.phone=user.getString("telefono");
+                                            if(user.getInt("esEmpresa")==1){
+                                                RegisterCompanyActivity.companyName=user.getString("nombreEmpresa");
+                                                JSONObject obj7 = new JSONObject("{}");
+                                                obj7.put("id",RegisterCompanyActivity.id);
+                                                UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/get_image", obj7.toString(), (response4) -> {
+                                                    try {
+                                                        JSONObject obj8 = new JSONObject(response4);
+                                                        if (obj8.getString("status").equals("OK")) {
+                                                            RegisterCompanyActivity.companyImage=obj8.getString("anuncio");
+                                                        }
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                });
+                                            }
+                                        } else if (obj6.getString("status").equals("ERROR")) {
+                                            dialog(obj6.getString("status"),obj6.getString("message"));
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                });
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            Intent intent = new Intent(ActivityAnuncio.this,MainCompanyActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
                     alerta.show();
                 } else if (status.equals("ERROR")) {
                     alerta.setTitle("Error de anuncio");
@@ -350,8 +398,5 @@ public class ActivityAnuncio extends AppCompatActivity {
 
             }
         });
-    }
-    public void comprobarHoras(){
-
     }
 }

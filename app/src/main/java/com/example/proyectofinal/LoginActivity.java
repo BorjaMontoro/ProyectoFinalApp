@@ -170,13 +170,11 @@ public class LoginActivity extends AppCompatActivity {
                     alerta.setNegativeButton("OK" ,new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
                             button.setEnabled(true);
                         }
                     });
                     alerta.setOnCancelListener(new DialogInterface.OnCancelListener() {
                         public void onCancel(DialogInterface dialog) {
-                            dialog.cancel();
                             button.setEnabled(true);                        }
                     });
                     alerta.show();
