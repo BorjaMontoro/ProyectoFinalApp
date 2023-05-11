@@ -1,6 +1,5 @@
 package com.example.proyectofinal;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -13,7 +12,6 @@ import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -30,9 +28,6 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.time.LocalTime;
-import java.time.chrono.ChronoLocalDateTime;
-import java.util.ArrayList;
 import java.util.Base64;
 
 public class ActivityAnuncio extends AppCompatActivity {
@@ -203,6 +198,7 @@ public class ActivityAnuncio extends AppCompatActivity {
         enviarAnunci.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                enviarAnunci.setEnabled(false);
                 if (base64!=null&&direccion.getText()!=null&&tipo.getSelectedItem()!=null) {
                     try {
                         JSONObject obj = null;
@@ -262,7 +258,13 @@ public class ActivityAnuncio extends AppCompatActivity {
                     alerta.setNegativeButton("Cerrar" ,new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                enviarAnunci.setEnabled(true);
+
                             }
+                    });
+                    alerta.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        public void onCancel(DialogInterface dialog) {
+                            enviarAnunci.setEnabled(true);                        }
                     });
                     alerta.show();
                 }

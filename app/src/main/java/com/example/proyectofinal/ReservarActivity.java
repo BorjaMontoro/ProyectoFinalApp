@@ -1,7 +1,6 @@
 package com.example.proyectofinal;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,7 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -24,7 +22,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class ReservarActivity extends AppCompatActivity {
@@ -34,6 +31,7 @@ public class ReservarActivity extends AppCompatActivity {
     private RecyclerView listaHorasDisponibles;
     private String selectedHora;
     private Calendar fechaSeleccionada;
+    private Button confirmarButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,10 +82,11 @@ public class ReservarActivity extends AppCompatActivity {
             }
         });
 
-        Button confirmarButton = findViewById(R.id.confirmar_button);
+        confirmarButton = findViewById(R.id.confirmar_button);
         confirmarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                confirmarButton.setEnabled(false);
                 int year = fechaSeleccionada.get(Calendar.YEAR);
                 int month = fechaSeleccionada.get(Calendar.MONTH);
                 int day = fechaSeleccionada.get(Calendar.DAY_OF_MONTH);
@@ -188,12 +187,12 @@ public class ReservarActivity extends AppCompatActivity {
                     alerta.setNegativeButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
+                            confirmarButton.setEnabled(true);
                         }
                     });
                     alerta.setOnCancelListener(new DialogInterface.OnCancelListener() {
                         public void onCancel(DialogInterface dialog) {
-                            dialog.cancel();
+                            confirmarButton.setEnabled(true);
                         }
                     });
 

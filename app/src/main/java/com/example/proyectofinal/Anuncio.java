@@ -1,7 +1,5 @@
 package com.example.proyectofinal;
 
-import android.os.Parcelable;
-
 import java.io.Serializable;
 
 public class Anuncio implements Serializable {

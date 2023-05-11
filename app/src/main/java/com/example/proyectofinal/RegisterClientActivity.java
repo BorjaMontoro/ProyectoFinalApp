@@ -20,6 +20,7 @@ import org.json.JSONObject;
 public class RegisterClientActivity extends AppCompatActivity {
     EditText nombre,apellidos,correo,telefono,password,compPassword;
     TextView loginText;
+    Button registerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +48,11 @@ public class RegisterClientActivity extends AppCompatActivity {
 
 
     private void registerButton() throws JSONException {
-        Button registerButton = findViewById(R.id.registrar);
+        registerButton = findViewById(R.id.registrar);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                registerButton.setEnabled(false);
                 try {
                     JSONObject obj = new JSONObject("{}");
                     obj.put("name",nombre.getText());
@@ -102,7 +104,6 @@ public class RegisterClientActivity extends AppCompatActivity {
                     alerta.setNegativeButton("Cerrar" ,new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
                             JSONObject obj = null;
                             try {
                                 obj = new JSONObject("{}");
@@ -117,9 +118,37 @@ public class RegisterClientActivity extends AppCompatActivity {
                                             RegisterCompanyActivity.surname=user.getString("apellidos");
                                             RegisterCompanyActivity.mail=user.getString("correo");
                                             RegisterCompanyActivity.phone=user.getString("telefono");
-                                        } else if (obj2.getString("status").equals("ERROR")) {
-                                            dialog(obj2.getString("status"),obj2.getString("message"));
-
+                                        }
+                                    } catch (JSONException e) {
+                                        System.out.println();
+                                    }
+                                });
+                                Intent intent = new Intent(RegisterClientActivity.this,MainClientActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                                finish();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    alerta.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+                            JSONObject obj = null;
+                            try {
+                                obj = new JSONObject("{}");
+                                obj.put("id",RegisterCompanyActivity.id);
+                                UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/get_user", obj.toString(), (response) -> {
+                                    try {
+                                        JSONObject obj2 = new JSONObject(response);
+                                        if (obj2.getString("status").equals("OK")) {
+                                            JSONArray userList  = obj2.getJSONArray("user");
+                                            JSONObject user = (JSONObject) userList.get(0);
+                                            RegisterCompanyActivity.name=user.getString("nombre");
+                                            RegisterCompanyActivity.surname=user.getString("apellidos");
+                                            RegisterCompanyActivity.mail=user.getString("correo");
+                                            RegisterCompanyActivity.phone=user.getString("telefono");
                                         }
                                     } catch (JSONException e) {
                                         System.out.println();
@@ -141,7 +170,13 @@ public class RegisterClientActivity extends AppCompatActivity {
                     alerta.setNegativeButton("Cerrar" ,new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
+                            registerButton.setEnabled(true);
+
+                        }
+                    });
+                    alerta.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        public void onCancel(DialogInterface dialog) {
+                            registerButton.setEnabled(true);
                         }
                     });
                     alerta.show();

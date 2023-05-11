@@ -1,9 +1,7 @@
 package com.example.proyectofinal;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -115,7 +113,7 @@ public class ServicesFragment extends Fragment {
             public void run() {
                 AlertDialog.Builder alerta = new AlertDialog.Builder(getContext());
                 if (status.equals("OK")) {
-                    alerta.setTitle("Enviado servicio");
+                    alerta.setTitle("Servicio añadido");
                     alerta.setMessage(mesage);
                     alerta.setNegativeButton("Cerrar" ,new DialogInterface.OnClickListener() {
                         @Override
@@ -123,14 +121,26 @@ public class ServicesFragment extends Fragment {
 
                         }
                     });
+                    alerta.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+
+                        }
+                    });
                     alerta.show();
                 } else if (status.equals("ERROR")) {
-                    alerta.setTitle("Error al enviar servicio");
+                    alerta.setTitle("Error al añadir el servicio");
                     alerta.setMessage(mesage);
                     alerta.setNegativeButton("Cerrar" ,new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
+
+                        }
+                    });
+                    alerta.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+
                         }
                     });
                     alerta.show();
