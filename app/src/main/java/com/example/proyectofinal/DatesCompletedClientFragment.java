@@ -35,7 +35,7 @@ public class DatesCompletedClientFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private RecyclerView recyclerView;
-    private DateClientAdapter dateClientAdapter;
+    private DateClientCompletedAdapter dateClientAdapter;
 
     public DatesCompletedClientFragment() {
         // Required empty public constructor
@@ -79,7 +79,7 @@ public class DatesCompletedClientFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         List<DateClient> citas=new ArrayList<DateClient>();
 
-        dateClientAdapter = new DateClientAdapter(getContext(), citas);
+        dateClientAdapter = new DateClientCompletedAdapter(getContext(), citas);
         recyclerView.setAdapter(dateClientAdapter);
         loadDates();
         return root;
@@ -98,14 +98,14 @@ public class DatesCompletedClientFragment extends Fragment {
 
                     for (int i=0;i<jsonArray.length();i++){
                         JSONObject cita=jsonArray.getJSONObject(i);
-                        citas.add(new DateClient(cita.getString("nombreServicio"),cita.getString("nombreEmpresa"),cita.getString("mes"),Integer.toString(cita.getInt("dia")),cita.getString("hora"),Integer.toString(cita.getInt("year"))));
+                        citas.add(new DateClient(Integer.toString(cita.getInt("id")),cita.getString("nombreServicio"),cita.getString("nombreEmpresa"),cita.getString("mes"),Integer.toString(cita.getInt("dia")),cita.getString("hora"),Integer.toString(cita.getInt("year"))));
                     }
 
                     Handler handler = new Handler(Looper.getMainLooper());
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            dateClientAdapter = new DateClientAdapter(getContext(), citas);
+                            dateClientAdapter = new DateClientCompletedAdapter(getContext(), citas);
                             recyclerView.setAdapter(dateClientAdapter);
                         }
                     });

@@ -12,11 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class DateClientAdapter extends RecyclerView.Adapter<DateClientAdapter.ViewHolder> {
+public class DateClientCompletedAdapter extends RecyclerView.Adapter<DateClientCompletedAdapter.ViewHolder> {
     private List<DateClient> dates;
     private Context context;
 
-    public DateClientAdapter(Context context,List<DateClient> dates) {
+    public DateClientCompletedAdapter(Context context, List<DateClient> dates) {
         this.dates = dates;
         this.context=context;
     }
@@ -24,7 +24,7 @@ public class DateClientAdapter extends RecyclerView.Adapter<DateClientAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dates, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dates_completed, parent, false);
         return new ViewHolder(view);
     }
 

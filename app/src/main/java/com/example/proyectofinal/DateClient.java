@@ -1,6 +1,7 @@
 package com.example.proyectofinal;
 
 public class DateClient {
+    private String id;
     private String service;
     private String company;
     private String month;
@@ -8,7 +9,8 @@ public class DateClient {
     private String time;
     private String year;
 
-    public DateClient(String service, String company, String month, String day, String time, String year) {
+    public DateClient(String id, String service, String company, String month, String day, String time, String year) {
+        this.id = id;
         this.service = service;
         this.company = company;
         this.month = month;
@@ -39,6 +41,10 @@ public class DateClient {
 
     public String getYear(){
         return year;
+    }
+
+    public String getId() {
+        return id;
     }
 }
 
