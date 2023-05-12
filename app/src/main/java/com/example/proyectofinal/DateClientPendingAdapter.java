@@ -14,9 +14,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DateClientPendingAdapter extends RecyclerView.Adapter<DateClientPendingAdapter.ViewHolder> {
@@ -95,18 +97,37 @@ public class DateClientPendingAdapter extends RecyclerView.Adapter<DateClientPen
                             JSONObject obj = new JSONObject("{}");
                             obj.put("id",id);
                             UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/delete_date", obj.toString(), (response) -> {
-                                /*try {
-                                    JSONObject obj2 = new JSONObject(response);
-                                    if (obj2.getString("status").equals("OK")) {
-                                        dialog(obj2.getString("status"),obj2.getString("message"));
+                                try {
+                                    JSONObject obj2 = new JSONObject("{}");
+                                    obj2.put("id", RegisterCompanyActivity.id);
+                                    obj2.put("status", "Pending");
+                                    UtilsHTTP.sendPOST("https://proyectofinal-production-e1d3.up.railway.app:443/get_client_dates", obj2.toString(), (response2) -> {
+                                        try {
+                                            JSONObject obj3 = new JSONObject(response2);
+                                            JSONArray jsonArray=obj3.getJSONArray("citas");
+                                            List<DateClient> citas=new ArrayList<DateClient>();
 
-                                    } else if (obj2.getString("status").equals("ERROR")) {
-                                        dialog(obj2.getString("status"),obj2.getString("message"));
+                                            for (int i=0;i<jsonArray.length();i++){
+                                                JSONObject cita=jsonArray.getJSONObject(i);
+                                                citas.add(new DateClient(Integer.toString(cita.getInt("id")),cita.getString("nombreServicio"),cita.getString("nombreEmpresa"),cita.getString("mes"),Integer.toString(cita.getInt("dia")),cita.getString("hora"),Integer.toString(cita.getInt("year"))));
+                                            }
+                                            dates=citas;
+                                            Handler handler = new Handler(Looper.getMainLooper());
+                                            handler.post(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    notifyDataSetChanged();
+                                                }
+                                            });
 
-                                    }
+
+                                        } catch (JSONException e) {
+                                            System.out.println();
+                                        }
+                                    });
                                 } catch (JSONException e) {
-                                    System.out.println();
-                                }*/
+                                    e.printStackTrace();
+                                }
                             });
                         } catch (JSONException e) {
                             throw new RuntimeException(e);

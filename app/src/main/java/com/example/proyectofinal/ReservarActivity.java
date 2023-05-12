@@ -29,7 +29,7 @@ public class ReservarActivity extends AppCompatActivity {
     private String empresa;
     private CalendarView calendario;
     private RecyclerView listaHorasDisponibles;
-    private String selectedHora;
+    private String selectedHora="Ninguna";
     private Calendar fechaSeleccionada;
     private Button confirmarButton;
 
