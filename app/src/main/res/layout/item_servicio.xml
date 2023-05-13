@@ -18,10 +18,10 @@
             android:text="30m"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.57"
+            app:layout_constraintHorizontal_bias="0.511"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.739" />
+            app:layout_constraintVertical_bias="0.768" />
 
         <Button
             android:id="@+id/boton_reservar"
@@ -45,10 +45,9 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.559"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.316" />
+            app:layout_constraintVertical_bias="0.3" />
 
         <TextView
             android:id="@+id/nombre_servicio"
