@@ -82,7 +82,7 @@ public class RegisterCompanyActivity extends AppCompatActivity {
                             }
                         });
                     } else {
-                        dialog("ERROR","Les contrasenyes no són iguals.");
+                        dialog("ERROR","Las contraseñas no son iguales.");
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -173,7 +173,7 @@ public class RegisterCompanyActivity extends AppCompatActivity {
                     });
                     alerta.show();
                 } else if (status.equals("ERROR")) {
-                    alerta.setTitle("Error de registre");
+                    alerta.setTitle("Error de registro");
                     alerta.setMessage(mesage);
                     alerta.setNegativeButton("Cerrar" ,new DialogInterface.OnClickListener() {
                         @Override

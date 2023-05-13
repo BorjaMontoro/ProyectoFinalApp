@@ -41,6 +41,7 @@ public class ActivityAnuncio extends AppCompatActivity {
     String[] horasDomingo = new String[4];
     TextView direccion;
     Spinner tipo;
+    Button enviarAnunci;
     String base64=null;
 
     @Override
@@ -194,7 +195,7 @@ public class ActivityAnuncio extends AppCompatActivity {
                         }
                     }
                 });
-        Button enviarAnunci = findViewById(R.id.button3);
+        enviarAnunci = findViewById(R.id.button3);
         enviarAnunci.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -392,8 +393,13 @@ public class ActivityAnuncio extends AppCompatActivity {
                     alerta.setNegativeButton("Cerrar" ,new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
+                            enviarAnunci.setEnabled(true);
+
                         }
+                    });
+                    alerta.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        public void onCancel(DialogInterface dialog) {
+                            enviarAnunci.setEnabled(true);                        }
                     });
                     alerta.show();
                 }

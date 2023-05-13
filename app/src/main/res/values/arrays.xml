@@ -12,7 +12,6 @@
         <item>Pilates</item>
         <item>Gimnasio</item>
         <item>Nutrición</item>
-        <item>Medicina alternativa</item>
     </string-array>
     <string-array name="crear_anuncio">
         <item>Peluquería</item>
@@ -25,7 +24,6 @@
         <item>Pilates</item>
         <item>Gimnasio</item>
         <item>Nutrición</item>
-        <item>Medicina alternativa</item>
     </string-array>
     <string-array name="dias_semana">
         <item>Lunes</item>
