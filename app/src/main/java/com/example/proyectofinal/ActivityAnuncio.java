@@ -4,11 +4,15 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,8 +29,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.Base64;
 
@@ -148,7 +154,7 @@ public class ActivityAnuncio extends AppCompatActivity {
                 }
             }
         });
-        someActivityResultLauncher = registerForActivityResult(
+        /*someActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
@@ -194,7 +200,63 @@ public class ActivityAnuncio extends AppCompatActivity {
 
                         }
                     }
-                });
+                });*/
+        final byte[][] fileContent = new byte[1][1];
+        someActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+                            // There are no request codes
+                            Intent data = result.getData();
+                            Uri uri = data.getData();
+                            Bitmap originalBitmap = null;
+                            if (uri != null) {
+                                try {
+                                    originalBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                                    InputStream inputStream = getContentResolver().openInputStream(uri);
+                                    ExifInterface exif = new ExifInterface(inputStream);
+
+                                    int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+                                    Matrix matrix = new Matrix();
+                                    switch (orientation) {
+                                        case ExifInterface.ORIENTATION_ROTATE_90:
+                                            matrix.postRotate(90);
+                                            break;
+                                        case ExifInterface.ORIENTATION_ROTATE_180:
+                                            matrix.postRotate(180);
+                                            break;
+                                        case ExifInterface.ORIENTATION_ROTATE_270:
+                                            matrix.postRotate(270);
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                    originalBitmap = Bitmap.createBitmap(originalBitmap, 0, 0, originalBitmap.getWidth(), originalBitmap.getHeight(), matrix, true);
+
+
+                                    int originalWidth = originalBitmap.getWidth();
+                                    int originalHeight = originalBitmap.getHeight();
+                                    int newWidth = 1000;
+                                    int newHeight = (int) ((float) originalHeight / originalWidth * newWidth);
+
+                                    Bitmap resizedBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, false);
+
+                                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                                    resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 30, outputStream);
+                                    byte[] byteArray = outputStream.toByteArray();
+                                    base64 = Base64.getEncoder().encodeToString(byteArray);
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+
+
+                        }
+                    }
+                }
+        );
         enviarAnunci = findViewById(R.id.button3);
         enviarAnunci.setOnClickListener(new View.OnClickListener() {
             @Override
