@@ -37,18 +37,15 @@
             app:layout_constraintVertical_bias="0.859" />
 
         <androidx.cardview.widget.CardView
-            android:layout_width="383dp"
+            android:layout_width="353dp"
             android:layout_height="81dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.625"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.707">
+            app:layout_constraintVertical_bias="0.724">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -56,13 +53,13 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inputPrecio"
-                    android:layout_width="170dp"
+                    android:layout_width="165dp"
                     android:layout_height="48dp"
                     android:hint="0.00"
                     android:minHeight="48dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.497"
+                    app:layout_constraintHorizontal_bias="0.622"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.484" />
@@ -86,7 +83,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="28dp"
-                    android:layout_marginEnd="96dp"
+                    android:layout_marginEnd="52dp"
                     android:text="€"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -97,18 +94,15 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
-            android:layout_width="383dp"
+            android:layout_width="353dp"
             android:layout_height="81dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.625"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.496">
+            app:layout_constraintVertical_bias="0.504">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -116,7 +110,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inputDuracion"
-                    android:layout_width="188dp"
+                    android:layout_width="165dp"
                     android:layout_height="58dp"
                     android:hint="0 "
                     android:minHeight="48dp"
@@ -159,18 +153,16 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView2"
-            android:layout_width="383dp"
+            android:layout_width="353dp"
             android:layout_height="81dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.625"
+            app:layout_constraintHorizontal_bias="0.517"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.29">
+            app:layout_constraintVertical_bias="0.287">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -192,16 +184,16 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inputNombre"
-                    android:layout_width="251dp"
+                    android:layout_width="231dp"
                     android:layout_height="48dp"
                     android:hint="Servicio"
                     android:minHeight="48dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.878"
+                    app:layout_constraintHorizontal_bias="0.967"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.515" />
+                    app:layout_constraintVertical_bias="0.484" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
