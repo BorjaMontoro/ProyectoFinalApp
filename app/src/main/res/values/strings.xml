@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ProyectoFinal</string>
+    <string name="app_name">Reservio</string>
     <string name="title_home">Home</string>
     <string name="title_buscar">Buscar</string>
     <string name="title_servicios">Añadir Servicio</string>
