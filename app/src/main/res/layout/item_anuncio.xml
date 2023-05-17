@@ -13,11 +13,11 @@
     <TextView
         android:id="@+id/nombreTextView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:layout_height="match_parent"
+        android:padding="8dp"
         android:textColor="@color/black"
-        android:padding="8dp"/>
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tipoTextView"
@@ -30,10 +30,10 @@
     <TextView
         android:id="@+id/direccionTextView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
+        android:layout_height="match_parent"
+        android:padding="4dp"
         android:paddingStart="8dp"
-        android:padding="4dp"/>
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/empresaTextView"
