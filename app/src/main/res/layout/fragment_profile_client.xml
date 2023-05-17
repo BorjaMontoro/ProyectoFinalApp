@@ -15,54 +15,67 @@
         <TextView
             android:id="@+id/textView25"
             android:layout_width="85dp"
-            android:layout_height="37dp"
+            android:layout_height="wrap_content"
             android:text="Nombre: "
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.143"
+            app:layout_constraintHorizontal_bias="0.138"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.406" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView3"
+            app:layout_constraintVertical_bias="0.157" />
 
         <TextView
             android:id="@+id/textView16"
             android:layout_width="85dp"
-            android:layout_height="37dp"
+            android:layout_height="wrap_content"
             android:text="Telefono: "
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.138"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.523" />
+            app:layout_constraintTop_toBottomOf="@+id/nomApCli"
+            app:layout_constraintVertical_bias="0.108" />
 
         <TextView
             android:id="@+id/telefCli"
-            android:layout_width="184dp"
-            android:layout_height="37dp"
+            android:layout_width="216dp"
+            android:layout_height="wrap_content"
             android:text="612345677"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.629"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.523" />
+            app:layout_constraintHorizontal_bias="0.4"
+            app:layout_constraintStart_toEndOf="@+id/textView16"
+            app:layout_constraintTop_toBottomOf="@+id/nomApCli"
+            app:layout_constraintVertical_bias="0.111" />
 
         <TextView
             android:id="@+id/textView8"
             android:layout_width="84dp"
-            android:layout_height="37dp"
+            android:layout_height="wrap_content"
             android:text="Correo: "
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.134"
+            app:layout_constraintHorizontal_bias="0.146"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.622" />
+            app:layout_constraintTop_toBottomOf="@+id/telefCli"
+            app:layout_constraintVertical_bias="0.097" />
+
+        <TextView
+            android:id="@+id/correoCli"
+            android:layout_width="216dp"
+            android:layout_height="wrap_content"
+            android:text="ejemplo@ejemplo.com"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.412"
+            app:layout_constraintStart_toEndOf="@+id/textView8"
+            app:layout_constraintTop_toBottomOf="@+id/telefCli"
+            app:layout_constraintVertical_bias="0.097" />
 
         <Button
             android:id="@+id/logout"
@@ -71,36 +84,22 @@
             android:text="CERRAR SESION"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.773" />
-
-        <TextView
-            android:id="@+id/correoCli"
-            android:layout_width="246dp"
-            android:layout_height="78dp"
-            android:text="ejemplo@ejemplo.com"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.824"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.661" />
+            app:layout_constraintTop_toBottomOf="@+id/correoCli"
+            app:layout_constraintVertical_bias="0.375" />
 
         <TextView
             android:id="@+id/nomApCli"
-            android:layout_width="232dp"
-            android:layout_height="80dp"
+            android:layout_width="216dp"
+            android:layout_height="wrap_content"
             android:text="Nombre y apellidos"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.765"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.433" />
+            app:layout_constraintHorizontal_bias="0.4"
+            app:layout_constraintStart_toEndOf="@+id/textView25"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3"
+            app:layout_constraintVertical_bias="0.157" />
 
         <ImageView
             android:id="@+id/imageView3"
