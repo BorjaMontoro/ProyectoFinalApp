@@ -237,7 +237,7 @@ public class ActivityAnuncio extends AppCompatActivity {
 
                                     int originalWidth = originalBitmap.getWidth();
                                     int originalHeight = originalBitmap.getHeight();
-                                    int newWidth = 1000;
+                                    int newWidth = 750;
                                     int newHeight = (int) ((float) originalHeight / originalWidth * newWidth);
 
                                     Bitmap resizedBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, false);
