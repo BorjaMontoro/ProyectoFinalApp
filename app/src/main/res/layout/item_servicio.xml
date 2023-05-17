@@ -51,8 +51,8 @@
 
         <TextView
             android:id="@+id/nombre_servicio"
-            android:layout_width="158dp"
-            android:layout_height="87dp"
+            android:layout_width="145dp"
+            android:layout_height="95dp"
             android:gravity="fill"
             android:text="Servicio"
             android:textColor="@color/black"
@@ -60,9 +60,10 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.118"
+            app:layout_constraintHorizontal_bias="0.06"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <View
         android:layout_width="match_parent"

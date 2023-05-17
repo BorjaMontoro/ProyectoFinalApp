@@ -72,7 +72,7 @@
         <TextView
             android:id="@+id/nombre_servicio_text_view"
             android:layout_width="210dp"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:text="Corte"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="20sp"
