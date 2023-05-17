@@ -97,13 +97,11 @@ public class SearchFragment extends Fragment implements AnunciosAdapter.OnAnunci
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                // Aquí puedes llamar al adaptador y actualizar la lista de anuncios según los términos de búsqueda
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                // Aquí puedes llamar al adaptador y actualizar la lista de anuncios según los términos de búsqueda
                 busqueda=newText;
                 generarDatos();
                 return true;
@@ -114,14 +112,12 @@ public class SearchFragment extends Fragment implements AnunciosAdapter.OnAnunci
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // Aquí puedes llamar al adaptador y actualizar la lista de anuncios según el tipo seleccionado
                 tipo=(String) spinner.getSelectedItem();
                 generarDatos();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // No se hace nada si no se selecciona nada en el Spinner
             }
         });
 

@@ -95,11 +95,9 @@ public class DatesCompanyFragment extends Fragment {
         int day = fechaSeleccionada.get(Calendar.DAY_OF_MONTH);
         loadDates(year,month,day);
 
-        // Establecer el listener del CalendarView
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
-                // Actualizar el RecyclerView con las citas correspondientes al día seleccionado
                 loadDates(year,month,day);
             }
         });

@@ -208,7 +208,6 @@ public class ActivityAnuncio extends AppCompatActivity {
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         if (result.getResultCode() == Activity.RESULT_OK) {
-                            // There are no request codes
                             Intent data = result.getData();
                             Uri uri = data.getData();
                             Bitmap originalBitmap = null;

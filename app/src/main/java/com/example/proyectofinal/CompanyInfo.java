@@ -12,7 +12,6 @@ public class CompanyInfo {
     private List<String> saturdayHours;
     private List<String> sundayHours;
 
-    // Constructor
     public CompanyInfo(String phone, List<String> mondayHours, List<String> tuesdayHours, List<String> wednesdayHours, List<String> thursdayHours, List<String> fridayHours, List<String> saturdayHours, List<String> sundayHours) {
         this.phone = phone;
         this.mondayHours = mondayHours;
@@ -24,7 +23,6 @@ public class CompanyInfo {
         this.sundayHours = sundayHours;
     }
 
-    // Getters y setters
     public String getPhone() {
         return phone;
     }

@@ -85,19 +85,15 @@ public class HorariosFragment extends Fragment {
     }
 
     private void setHoursTable(TableLayout tableLayout, CompanyInfo companyInfo) {
-        // Obtener los días de la semana
         String[] daysOfWeek = getResources().getStringArray(R.array.dias_semana);
 
-        // Agregar una fila para cada día de la semana
         for (int i = 0; i < daysOfWeek.length; i++) {
             TableRow row = new TableRow(getContext());
 
-            // Agregar el nombre del día de la semana en la primera columna
             TextView dayTextView = new TextView(getContext());
             dayTextView.setText(daysOfWeek[i]);
             row.addView(dayTextView);
 
-            // Agregar los horarios de trabajo para ese día en la segunda columna
             List<String> hours = null;
             switch (i) {
                 case 0:
@@ -125,7 +121,6 @@ public class HorariosFragment extends Fragment {
                     break;
 
             }
-            // Agregar los horarios a la segunda columna
             TextView hoursTextView = new TextView(getContext());
             if (hours != null) {
                 StringBuilder hoursBuilder = new StringBuilder();
@@ -136,7 +131,6 @@ public class HorariosFragment extends Fragment {
             }
             row.addView(hoursTextView);
 
-            // Agregar la fila a la tabla
             tableLayout.addView(row);
 
         }
@@ -165,10 +159,8 @@ public class HorariosFragment extends Fragment {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            // Mostrar el número de teléfono de la empresa en el TextView correspondiente
                             phoneTextView.setText(companyInfo.getPhone());
 
-                            // Mostrar los horarios de la empresa en la tabla correspondiente
                             setHoursTable(hoursTableLayout, companyInfo);
 
                         }
